@@ -41,6 +41,7 @@ public class VentanaVendedorController implements Initializable {
                 Button btn1 = new Button(s[i]);
                 vbox.getChildren().add(btn1);
             }
+            vbox.setSpacing(20);
         }
         
     }

@@ -8,8 +8,13 @@ package ec.edu.espol.model;
 import ec.edu.espol.util.GFG;
 import ec.edu.espol.util.Util;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,23 +26,31 @@ import java.util.regex.Pattern;
  *
  * @author davidperez
  */
-public class Usuario {
+public class Usuario implements Serializable{
     protected int id;
     protected String correo;
     protected String clave;
     protected String nombres;
     protected String apellidos;
     protected String organizacion;
+    protected String rol;
+    protected ArrayList<Vehiculo> vehiculos;
+    protected ArrayList<Oferta> ofertas;
+    private static final long serialVersionUID = 93423423423423234L;
     
-    //constructor
+    //constructores
     
-    public Usuario(int id, String correo, String clave, String nombres, String apellidos, String organizacion){
+    // Constructor de ambos roles
+    public Usuario(int id, String correo, String clave, String nombres, String apellidos, String organizacion, String rol){
         this.id = id;
         this.correo = correo;
         this.clave = clave;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.organizacion = organizacion;
+        this.rol = rol;
+        vehiculos = new ArrayList<>();
+        ofertas = new ArrayList<>();
     }
     
     //getters y setters
@@ -89,7 +102,52 @@ public class Usuario {
     public void setOrganizacion(String organizacion) {
         this.organizacion = organizacion;
     }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public ArrayList<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public ArrayList<Oferta> getOfertas() {
+        return ofertas;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+
+    public void setOfertas(ArrayList<Oferta> ofertas) {
+        this.ofertas = ofertas;
+    }
+         
     
+    public static void saveFile(String nomFile, ArrayList<Vehiculo> vehiculos) {
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomFile))){
+            out.writeObject(vehiculos);
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+         
+    
+    public static ArrayList<Usuario> readFile(String nomfile) {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        try(ObjectInputStream out = new ObjectInputStream(new FileInputStream(nomfile))){
+            usuarios = (ArrayList<Usuario>)out.readObject();
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        } catch(ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        return usuarios;
+    }
     
     // funciones recuperadoras
     
@@ -110,6 +168,7 @@ public class Usuario {
         return correos;
     }
     //recuperar con correo
+    /*
     public static Usuario recuperarUsuario(String correo, String nomfile){
         ArrayList<Usuario> usuarios = Usuario.recuperarUsuarios(nomfile);
         for (Usuario u: usuarios){
@@ -119,81 +178,6 @@ public class Usuario {
         return null;
     }
     
-    public static ArrayList<Usuario> recuperarUsuarios (String nomfile){
-        ArrayList<Usuario> usuarios = new ArrayList<>();
-        try (Scanner sc = new Scanner(new File(nomfile))) {
-             while(sc.hasNextLine()){
-                // linea = id|correo|clave|nombres|apellidos|organizacion
-                String linea = sc.nextLine();
-                String[] tokens = linea.split("\\|");
-                Usuario u = new Usuario(Integer.parseInt(tokens[0]), tokens[1], tokens [2], tokens[3], tokens[4], tokens[5]);
-                usuarios.add(u);
-            }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        return usuarios;
-    }
-    
-    //comportamientos problema
-
-    
-    public static void nextUsuario(Scanner sc, String nomfile) throws NoSuchAlgorithmException{
-        sc.useDelimiter("\n");
-        System.out.println("REGISTRAR UN NUEVO USUARIO");
-        
-        String correo;
-        boolean corrExis;
-        boolean corrValid;
-        do{
-            System.out.println( "Introduzca su correo electrónico: " );
-            correo = sc.next().toLowerCase();
-            corrExis = correoExistente(correo, nomfile);
-            corrValid = validarCorreo(correo);
-            if (!corrValid)
-                System.out.println("Por favor ingrese un correo válido.");
-            else if (corrExis)
-                System.out.println("El correo que ingresó ya posee una cuenta, por favor ingrese otro correo si desea continuar.");
-        }while(!corrValid || corrExis);
-        
-        System.out.println( "Introduzca una clave: " );
-        String clave = sc.next();
-        String hashclave;
-        hashclave = GFG.toHexString(GFG.getSHA(clave));
-        System.out.println( "Introduzca sus nombres: " );
-        String nombres = sc.next();
-        System.out.println( "Introduzca sus apellidos: " );
-        String apellidos = sc.next();
-        System.out.println( "Introduzca su organizacion: " );
-        String organizacion = sc.next();
-        int id = Util.nextID(nomfile);
-        Usuario u = new Usuario(id, correo, hashclave, nombres, apellidos, organizacion);
-        u.saveFile(nomfile);
-        System.out.println("\n");
-        System.out.println("Se ha registrado su usuario con éxtio.");
-        System.out.println(" -------------------------------------------------------------------------------- ");
-    }
-    
-    
-    //funcion de file
-    
-    public void saveFile(String nomfile){
-        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true))) {
-            pw.println (this.id+"|"+this.correo+"|"+this.clave+"|"+this.nombres+"|"+this.apellidos+"|"+this.organizacion);
-            
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        
-    }
-    
-    /*
-    public void crearArchivos() {
-        File vehiculos = new File();
-        
-    }
-    */
     
     //funciones de validacion
     
@@ -206,7 +190,7 @@ public class Usuario {
         }
         return false;
     }
-    
+    */
     public static boolean validarCorreo(String correo){
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(regex);
@@ -235,7 +219,7 @@ public class Usuario {
     
     @Override
     public String toString(){
-        String s = "USUARIO\nNombres: " +this.nombres + "\nApellidos: " + this.apellidos+ "\nCorreo Electrónico: " + this.correo + "\nOrganización " + this.organizacion+ "\nID de usuario: " + this.id+ "";
+        String s = "USUARIO\nNombres: " +this.nombres + "\nApellidos: " + this.apellidos+ "\nCorreo Electrónico: " + this.correo + "\nRol: " + this.rol;
         return s;
     }
 }

@@ -1,3 +1,3 @@
-vendedor,Ingresar Nuevo Vehículo,Ver Ofertas
-comprador,Ofertar por un Vehículo
-ambos,Ingresar Nuevo Vehículo,Ver Ofertas,Ofertar por un Vehículo
+vendedor,Ingresar Nuevo Vehiculo,Ver Ofertas
+comprador,Ofertar por un Vehiculo
+ambos,Ingresar Nuevo Vehiculo,Ver Ofertas,Ofertar por un Vehiculo
