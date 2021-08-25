@@ -1,0 +1,3 @@
+auto,Placa,Marca,Motor,Anio,Modelo,Recorrido,Color,Combustible,Precio,Vidrios,Transmision
+camioneta,Placa,Marca,Motor,Anio,Modelo,Recorrido,Color,Combustible,Precio,Vidrios,Transmision,Traccion
+moto,Placa,Marca,Motor,Anio,Modelo,Recorrido,Color,Combustible,Precio

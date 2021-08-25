@@ -8,6 +8,7 @@ package ec.edu.espol.model;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ import java.util.Scanner;
  *
  * @author davidperez
  */
-public class Oferta {
+public class Oferta implements Serializable {
     private int id;
     private int id_Comprador;
     private int id_Vehiculo;
@@ -23,6 +24,7 @@ public class Oferta {
     private Vehiculo vehiculo;
     private Comprador comprador;
     private String correo_comprador;
+    private static final long serialVersionUID = 93423423423423234L;
     
     //constructor
 
