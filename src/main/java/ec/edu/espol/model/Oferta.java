@@ -96,47 +96,6 @@ public class Oferta implements Serializable {
     
     //funciones de file
     
-    public void saveFile(String nomfile) {
-        
-        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)) ) {
-            
-            pw.println (this.id+"|"+this.id_Comprador+"|"+this.id_Vehiculo+"|"+this.precio_ofertado + "|" + this.correo_comprador);
-
-            
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    public static ArrayList<Oferta> readFile(String nomfile) {
-        ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
-        
-        try (Scanner sc = new Scanner(new File(nomfile))) {
-            while(sc.hasNextLine()){
-            String linea = sc.nextLine();
-            String [] tokens = linea.split("\\|");
-            Oferta o = new Oferta(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]), Double.parseDouble(tokens[3]), tokens[4]);
-            ofertas.add(o);
-            }  
-        }catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return ofertas;
-    }
-    
-    //funciones de link
-    
-    public static void link(ArrayList<Comprador> compradores, ArrayList<Vehiculo> vehiculos, ArrayList<Oferta> ofertas) {
-        for(Oferta o : ofertas){
-            Comprador c = Comprador.searchByID(compradores, o.getId_Comprador());
-            Vehiculo v = Vehiculo.searchByID(vehiculos, o.getId_Vehiculo());
-            c.getOfertas().add(o);
-            v.getOfertas().add(o);
-            o.setComprador(c);
-            o.setVehiculo(v);
-        }
-    }
-    
     //sobreescrituras
     
     @Override

@@ -6,9 +6,15 @@
 package ec.edu.espol.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -18,16 +24,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author Fernando
  */
-public class VentanaRegistroVehiculoController implements Initializable {
+public class VentanaRegistroVehiculoController implements Initializable{
 
     @FXML
     private RadioButton rButton1;
@@ -45,6 +57,11 @@ public class VentanaRegistroVehiculoController implements Initializable {
     private Button btnAdjuntar;
     
     private ArrayList<String[]> caracteristicas;
+    @FXML
+    private AnchorPane aPane1;
+    private Pane pane1;
+    @FXML
+    private ImageView imv1;
 
     /**
      * Initializes the controller class.
@@ -68,6 +85,22 @@ public class VentanaRegistroVehiculoController implements Initializable {
 
     @FXML
     private void registrar(MouseEvent event) {
+        File img = new File(imv1.getImage().getUrl());
+        String ruta = img.getAbsolutePath().substring(img.getAbsolutePath().lastIndexOf("\\") + 1);
+        String newPath = "img/";
+        
+        File directory = new File(newPath);
+        if(!directory.exists())
+            directory.mkdirs();
+        
+        File sourceFile = new File(img.getAbsolutePath());
+        File destination = new File(newPath + ruta);
+        
+        try {
+            Files.copy(sourceFile.toPath(), destination.toPath());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
     public static ArrayList<String[]> leerCaracteristicas(String nomFile){
@@ -91,6 +124,31 @@ public class VentanaRegistroVehiculoController implements Initializable {
             GridPane.setConstraints(txt, 0, i-1);
             GridPane.setConstraints(txtf, 1, i-1);
             gridPane.getChildren().addAll(txt,txtf);
+        }
+    }
+
+    @FXML
+    private void buscarImagen(MouseEvent event) {
+        
+        FileChooser filechooser = new FileChooser();
+        Stage stage = (Stage) aPane1.getScene().getWindow();
+        File file = filechooser.showOpenDialog(stage);
+        Image img = new Image(file.toURI().toString());
+        
+        if(file != null){
+            imv1.setImage(img);
+        }
+    }
+    
+    public void guardarImagen(ArrayList<File> imagenes, String nomFile){
+        
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomFile))) {
+            out.writeObject(imagenes);
+
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
     

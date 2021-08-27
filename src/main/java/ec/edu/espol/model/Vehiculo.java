@@ -20,136 +20,227 @@ import java.util.ArrayList;
  */
 public class Vehiculo implements Serializable{
     
-        private String Placa;
-	private String Marca;
-	private String Modelo;
-	private double tipomotor;
-	private int Año;
-	private Double Recorrido;
-	private String Color;
-	private String Tipocombustible;
-	private int Vidrios;
-	private String Transmision;
-	private String Traccion;
-	private double Precio;
-        private String TipoVehiculo;
-
-    public String getMarca() {
-        return Marca;
-    }
-
-    public String getModelo() {
-        return Modelo;
-    }
-
-    public double getTipomotor() {
-        return tipomotor;
-    }
-
-    public int getAño() {
-        return Año;
-    }
-
-    public Double getRecorrido() {
-        return Recorrido;
-    }
-
-    public String getColor() {
-        return Color;
-    }
-
-    public String getTipocombustible() {
-        return Tipocombustible;
-    }
-
-    public int getVidrios() {
-        return Vidrios;
-    }
-
-    public String getTransmision() {
-        return Transmision;
-    }
-
-    public String getTraccion() {
-        return Traccion;
-    }
-
-    public double getPrecio() {
-        return Precio;
-    }
-
-    public String getTipoVehiculo() {
-        return TipoVehiculo;
-    }
-
-        
-        
-   
-   
-    public Vehiculo(String TipoVehiculo,String Placa,String Marca,String Modelo,double tipomotor,int Año,double Recorrido,String Color,String Tipocombustible,double Precio){
-        this.Placa=Placa;
-        this.Marca=Marca;
-        this.Modelo=Modelo;
-        this.tipomotor=tipomotor;
-        this.Año=Año;
-        this.Recorrido=Recorrido;
-        this.Color=Color;
-        this.Tipocombustible=Tipocombustible;
-        this.Precio=Precio;
-        this.TipoVehiculo=TipoVehiculo;
+    private int id;
+    private String tipo;
+    private String placa;
+    private String marca;
+    private String motor;
+    private int anio;
+    private String modelo;
+    private double recorrido;
+    private String color; 
+    private String combustible; 
+    private double precio;  
+    private String vidrios;  
+    private String transmision;
+    private String traccion; 
+    private int id_vendedor;
+    private Vendedor vendedor;
+    private ArrayList<Oferta> ofertas;
+    private static final long serialVersionUID = 93423423423423234L;
+    
+    // Constructor de Autos
  
-    
+    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision){
+        this.id = id;
+        this.tipo = tipo;
+        this.id_vendedor = id_vendedor;
+        this.placa = placa;
+        this.marca = marca;
+        this.motor = motor;
+        this.anio = anio;
+        this.modelo = modelo;
+        this.recorrido = recorrido;
+        this.color = color;
+        this.combustible = combustible;
+        this.precio = precio;
+        this.vidrios = vidrios;
+        this.transmision = transmision;
+        this.ofertas = new ArrayList<>();
     }
     
+    // Constructor de Camionetas
     
-     public Vehiculo(String TipoVehiculo,String Placa,String Marca,String Modelo,double tipomotor,int Año,double Recorrido,String Color,String Tipocombustible,int Vidrios,String Transmision,double Precio){
-        this.Placa=Placa;
-        this.Marca=Marca;
-        this.Modelo=Modelo;
-        this.tipomotor=tipomotor;
-        this.Año=Año;
-        this.Recorrido=Recorrido;
-        this.Color=Color;
-        this.Tipocombustible=Tipocombustible;
-        this.Precio=Precio;
-        this.Vidrios=Vidrios;
-        this.Transmision=Transmision;
-        this.TipoVehiculo=TipoVehiculo;
-        
+    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String traccion){
+        this.id = id;
+        this.tipo = tipo;
+        this.id_vendedor = id_vendedor;
+        this.placa = placa;
+        this.marca = marca;
+        this.motor = motor;
+        this.anio = anio;
+        this.modelo = modelo;
+        this.recorrido = recorrido;
+        this.color = color;
+        this.combustible = combustible;
+        this.precio = precio;
+        this.vidrios = vidrios;
+        this.transmision = transmision;
+        this.traccion = traccion;
+        this.ofertas = new ArrayList<>();
     }
     
-        
-    public Vehiculo(String TipoVehiculo,String Placa,String Marca,String Modelo,double tipomotor,int Año,double Recorrido,String Color,String Tipocombustible,String Traccion,int Vidrios,String Transmision,double Precio){
-        this.Placa=Placa;
-        this.Marca=Marca;
-        this.Modelo=Modelo;
-        this.tipomotor=tipomotor;
-        this.Año=Año;
-        this.Recorrido=Recorrido;
-        this.Color=Color;
-        this.Tipocombustible=Tipocombustible;
-        this.Precio=Precio;
-        this.Vidrios=Vidrios;
-        this.Transmision=Transmision;
-        this.Traccion=Traccion;
-        this.TipoVehiculo=TipoVehiculo;
-      
+    // Constructor de motos
     
-    
+    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio){
+        this.id = id;
+        this.tipo = tipo;
+        this.id_vendedor = id_vendedor;
+        this.placa = placa;
+        this.marca = marca;
+        this.motor = motor;
+        this.anio = anio;
+        this.modelo = modelo;
+        this.recorrido = recorrido;
+        this.color = color;
+        this.combustible = combustible;
+        this.precio = precio;
+        this.ofertas = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTipo() {
+        return tipo;
     }
 
     public String getPlaca() {
-        return Placa;
+        return placa;
     }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getMotor() {
+        return motor;
+    }
+
+    public int getAnio() {
+        return anio;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public double getRecorrido() {
+        return recorrido;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getCombustible() {
+        return combustible;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public String getVidrios() {
+        return vidrios;
+    }
+
+    public String getTransmision() {
+        return transmision;
+    }
+
+    public String getTraccion() {
+        return traccion;
+    }
+
+    public int getId_vendedor() {
+        return id_vendedor;
+    }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    public ArrayList<Oferta> getOfertas() {
+        return ofertas;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public void setMotor(String motor) {
+        this.motor = motor;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public void setRecorrido(double recorrido) {
+        this.recorrido = recorrido;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setCombustible(String combustible) {
+        this.combustible = combustible;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public void setVidrios(String vidrios) {
+        this.vidrios = vidrios;
+    }
+
+    public void setTransmision(String transmision) {
+        this.transmision = transmision;
+    }
+
+    public void setTraccion(String traccion) {
+        this.traccion = traccion;
+    }
+
+    public void setId_vendedor(int id_vendedor) {
+        this.id_vendedor = id_vendedor;
+    }
+
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public void setOfertas(ArrayList<Oferta> ofertas) {
+        this.ofertas = ofertas;
+    }
+
     
-    
-    
-    public static void guardarVehiculo(String nombreArchivo,ArrayList<Vehiculo> Vehiculos){
-        
-         
-        try {
-            FileOutputStream fous = new FileOutputStream(nombreArchivo);
-            ObjectOutputStream out = new ObjectOutputStream(fous);
+    public static void guardarVehiculo(String nomFile,ArrayList<Vehiculo> Vehiculos){
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomFile))) {
             out.writeObject(Vehiculos);
             out.flush();
         } catch (FileNotFoundException ex) {
@@ -157,24 +248,12 @@ public class Vehiculo implements Serializable{
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-            
-       
-    
     }
     
-    
-    
-         
-    
-    public static ArrayList<Vehiculo> cargarVehiculo(String nombreArchivo){
-        
-        
-        try {
-            FileInputStream fous = new FileInputStream(nombreArchivo);
-             ObjectInputStream out = new ObjectInputStream(fous);
-            ArrayList<Vehiculo> ListaVehiculo= (ArrayList<Vehiculo>)out.readObject();
-            return ListaVehiculo;
-            
+    public static ArrayList<Vehiculo> cargarVehiculos(String nombreArchivo){
+        ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
+        try (ObjectInputStream out = new ObjectInputStream(new FileInputStream(nombreArchivo));) {
+            listaVehiculos = (ArrayList<Vehiculo>)out.readObject();  
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -182,15 +261,17 @@ public class Vehiculo implements Serializable{
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-           
-            
-       
-    
-        return null;
+        return listaVehiculos;
     } 
     
-    
-    
-    
+    public static ArrayList<Vehiculo> extraerVehiculos(ArrayList<Usuario> usuarios){
+        ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+        for(Usuario u : usuarios){
+            for(Vehiculo v : u.getVehiculos()){
+                vehiculos.add(v);
+            }
+        }
+        return vehiculos;
+    }
      
 }
