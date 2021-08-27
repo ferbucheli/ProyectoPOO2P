@@ -12,7 +12,7 @@
             <Font name="Bold Italic Art" size="54.0" />
          </font>
       </Text>
-      <VBox fx:id="vbox" layoutX="273.0" layoutY="29.0" prefHeight="279.0" prefWidth="282.0" />
+      <VBox fx:id="vbox" layoutX="271.0" layoutY="70.0" prefHeight="279.0" prefWidth="282.0" />
       <Text fx:id="txt1" layoutX="23.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font size="16.0" />

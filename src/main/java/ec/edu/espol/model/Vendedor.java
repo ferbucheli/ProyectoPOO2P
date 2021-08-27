@@ -8,6 +8,7 @@ package ec.edu.espol.model;
 import java.util.ArrayList;
 import java.util.Scanner;
 import ec.edu.espol.util.Util;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 //import javax.mail.*;
@@ -17,19 +18,20 @@ import java.util.Properties;
  *
  * @author davidperez
  */
-public class Vendedor extends Usuario{
+public class Vendedor extends Usuario implements Serializable{
     
-    private ArrayList<Vehiculo> vehiculos;    
+    private ArrayList<Vehiculo> vehiculos;
+    private static final long serialVersionUID = 93423423423423234L;
 
     //Constructor
     
-    public Vendedor ( int id,String correo, String clave, String nombres, String apellidos, String organizacion) {
-        super(id,correo,clave,nombres,apellidos,organizacion);
+    public Vendedor ( int id,String correo, String clave, String nombres, String apellidos, String organizacion, String rol) {
+        super(id,correo,clave,nombres,apellidos,organizacion,rol);
         this.vehiculos = new ArrayList<>();
     }
     
     public Vendedor(Usuario u){
-        super(u.getId(), u.getCorreo(), u.getClave(), u.getNombres(),u.getApellidos(),u.getOrganizacion());
+        super(u.getId(), u.getCorreo(), u.getClave(), u.getNombres(),u.getApellidos(),u.getOrganizacion(),u.rol);
         this.vehiculos = new ArrayList<>();   
     }
     
@@ -45,6 +47,7 @@ public class Vendedor extends Usuario{
     
     //comportamientos
 
+    /*
     public void ingresarVehiculo(Scanner sc,String nomfile) {
         
         System.out.println("Ingrese el tipo de Vehiculo (MOTO, CARRO, CAMIONETA):\n");
@@ -122,7 +125,7 @@ public class Vendedor extends Usuario{
             e.printStackTrace();   //Si se produce un error
         }
     }
-    */
+
     
     public static Vendedor searchByID(ArrayList<Vendedor> vendedores, int id){
         for(Vendedor v : vendedores){
@@ -143,6 +146,7 @@ public class Vendedor extends Usuario{
         return opcion;
     }
     
+    
     public static Vendedor inicioSesionV(Scanner sc) throws NoSuchAlgorithmException{
         String correo;
         String clave;
@@ -157,5 +161,5 @@ public class Vendedor extends Usuario{
         System.out.println(" -------------------------------------------------------------------------------- ");
         return u;
     }
-    
+    */
 }

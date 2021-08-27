@@ -6,6 +6,7 @@
 package ec.edu.espol.model;
 
 import ec.edu.espol.util.Util;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -15,11 +16,18 @@ import java.util.Scanner;
  *
  * @author davidperez
  */
-public class Comprador extends Usuario{
+public class Comprador extends Usuario implements Serializable{
     private ArrayList<Oferta> ofertas;
+    private static final long serialVersionUID = 93423423423423234L;
+
+    public Comprador(int id, String correo, String clave, String nombres, String apellidos, String organizacion, String rol) {
+        super(id, correo, clave, nombres, apellidos, organizacion, rol);
+        this.ofertas = new ArrayList<>();
+    }
     
     //constructores
     
+    /*
     public Comprador(int id,String correo, String clave, String nombres, String apellidos, String organizacion){
         super(id,correo, clave, nombres, apellidos, organizacion);
         this.ofertas = new ArrayList<>();
@@ -29,7 +37,7 @@ public class Comprador extends Usuario{
         super(u.getId(), u.getCorreo(), u.getClave(), u.getNombres(),u.getApellidos(),u.getOrganizacion());
         this.ofertas = new ArrayList<>();   
     }
-    
+    */
     //getters y setters
 
     public ArrayList<Oferta> getOfertas() {
@@ -258,6 +266,7 @@ public class Comprador extends Usuario{
         return opcion;
     }
     
+    /*
     public static Comprador inicioSesionC(Scanner sc) throws NoSuchAlgorithmException{
         String correo;
         String clave;
@@ -272,5 +281,5 @@ public class Comprador extends Usuario{
         System.out.println(" -------------------------------------------------------------------------------- ");
         return comp;
     }
-    
+    */
 }
