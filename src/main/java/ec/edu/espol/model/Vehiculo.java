@@ -37,11 +37,12 @@ public class Vehiculo implements Serializable{
     private int id_vendedor;
     private Vendedor vendedor;
     private ArrayList<Oferta> ofertas;
+    private String rutaImg;
     private static final long serialVersionUID = 93423423423423234L;
     
     // Constructor de Autos
  
-    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision){
+    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String rutaImg){
         this.id = id;
         this.tipo = tipo;
         this.id_vendedor = id_vendedor;
@@ -56,12 +57,13 @@ public class Vehiculo implements Serializable{
         this.precio = precio;
         this.vidrios = vidrios;
         this.transmision = transmision;
+        this.rutaImg = rutaImg;
         this.ofertas = new ArrayList<>();
     }
     
     // Constructor de Camionetas
     
-    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String traccion){
+    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String traccion, String rutaImg){
         this.id = id;
         this.tipo = tipo;
         this.id_vendedor = id_vendedor;
@@ -77,12 +79,13 @@ public class Vehiculo implements Serializable{
         this.vidrios = vidrios;
         this.transmision = transmision;
         this.traccion = traccion;
+        this.rutaImg = rutaImg;
         this.ofertas = new ArrayList<>();
     }
     
     // Constructor de motos
     
-    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio){
+    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String rutaImg){
         this.id = id;
         this.tipo = tipo;
         this.id_vendedor = id_vendedor;
@@ -95,6 +98,7 @@ public class Vehiculo implements Serializable{
         this.color = color;
         this.combustible = combustible;
         this.precio = precio;
+        this.rutaImg = rutaImg;
         this.ofertas = new ArrayList<>();
     }
 

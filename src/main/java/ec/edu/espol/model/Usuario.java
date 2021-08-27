@@ -9,6 +9,7 @@ import ec.edu.espol.util.GFG;
 import ec.edu.espol.util.Util;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -150,6 +151,31 @@ public class Usuario implements Serializable{
     }
     
     // funciones recuperadoras
+    
+    public static void guardarUsuarios(String nomFile,ArrayList<Usuario> usuarios){
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomFile))) {
+            out.writeObject(usuarios);
+            out.flush();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public static ArrayList<Usuario> cargarUsuarios(String nombreArchivo){
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        try (ObjectInputStream out = new ObjectInputStream(new FileInputStream(nombreArchivo));) {
+            usuarios = (ArrayList<Usuario>)out.readObject();  
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return usuarios;
+    } 
     
     public static ArrayList<String> recuperarCorreos(String nomfile){
         ArrayList<String> correos = new ArrayList<>();
