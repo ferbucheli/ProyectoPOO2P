@@ -5,6 +5,8 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.model.Usuario;
+import ec.edu.espol.model.Vehiculo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,6 +31,10 @@ public class VentanaVendedorController implements Initializable {
     @FXML
     private Text txt1;
 
+    private ArrayList<Vehiculo> vehiculos;
+    private ArrayList<Usuario> usuarios;
+    private Usuario usuario;
+    
     /**
      * Initializes the controller class.
      */
@@ -58,6 +64,12 @@ public class VentanaVendedorController implements Initializable {
             System.out.println(i.getMessage());
         }
         return opciones;
+    }
+    
+    public void setInformacion(ArrayList<Vehiculo> vehiculos, ArrayList<Usuario> usuarios, Usuario usuario){
+        this.vehiculos = vehiculos;
+        this.usuarios = usuarios;
+        this.usuario = usuario;
     }
     
 }

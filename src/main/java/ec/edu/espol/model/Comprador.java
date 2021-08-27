@@ -171,44 +171,7 @@ public class Comprador extends Usuario implements Serializable{
         return filtroVehiculos;
     }
     
-    public static Vehiculo elegirVehiculo(Scanner sc, ArrayList<Vehiculo> vehiculos){
-        if(!vehiculos.isEmpty()){
-            System.out.println("Se han encontrado " + vehiculos.size()+ " vehículos que cumplen con estos parámetros.");
-            System.out.println(" -------------------------------------------------------------------------------- ");
-            int i = 0;
-            int opcion = 0;
-            while(opcion !=4){
-                System.out.println("Vehículo #" + (i+1) + "\n" + vehiculos.get(i) + "\n");
-                do{
-                    System.out.println("1. Siguiente vehículo");
-                    System.out.println("2. Vehículo anterior");
-                    System.out.println("3. Poner una oferta");
-                    System.out.println("4. Cancelar");
-                    opcion = sc.nextInt();
-                    System.out.println(" -------------------------------------------------------------------------------- ");
-                }
-                while(opcion != 1 && opcion != 2 && opcion !=3 && opcion != 4);
-                if(opcion == 1){
-                    if(i == (vehiculos.size() - 1))
-                        i = 0;
-                    else
-                        i += 1;       
-                }
-                else if(opcion == 2){
-                    if(i == 0)
-                        i = vehiculos.size() - 1;
-                    else
-                        i -= 1;
-                }
-                else if(opcion == 3){
-                    return vehiculos.get(i);
-                }
-            }
-        }
-        else
-            System.out.println("No hay vehículos dentro de estos parámetros."+"\n");
-        return null;
-    }
+    
     
     public void ponerOferta(Vehiculo v, String nomfile, Scanner sc){
         sc.useDelimiter("\n");
@@ -266,20 +229,4 @@ public class Comprador extends Usuario implements Serializable{
         return opcion;
     }
     
-    /*
-    public static Comprador inicioSesionC(Scanner sc) throws NoSuchAlgorithmException{
-        String correo;
-        String clave;
-
-        do{
-            System.out.println( "Introduzca su correo electrónico: " );
-            correo = sc.next().toLowerCase();
-            System.out.println( "Introduzca su clave: " );
-            clave = sc.next();
-        }while(!Usuario.validarUsuario(correo,clave,"compradores.txt"));
-        Comprador comp = new Comprador(Usuario.recuperarUsuario(correo, "compradores.txt"));
-        System.out.println(" -------------------------------------------------------------------------------- ");
-        return comp;
-    }
-    */
 }
