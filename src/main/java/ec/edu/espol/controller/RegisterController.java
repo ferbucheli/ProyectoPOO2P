@@ -9,53 +9,38 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
  *
- * @author Fernando
+ * @author yober
  */
-public class LoginController implements Initializable {
+public class RegisterController implements Initializable {
 
     @FXML
-    private GridPane GridPaneTop;
+    private TextField nombres;
     @FXML
-    private GridPane GridPaneCenter;
+    private TextField apellidos;
     @FXML
-    private TextField user;
+    private TextField correo;
     @FXML
-    private PasswordField password;
+    private TextField organización;
     @FXML
-    private Button login;
-    @FXML
-    private Button registrar;
-
+    private PasswordField contraseña;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // 
-        
+        // TODO
     }    
 
     @FXML
-    private void login(MouseEvent event) {
-        
-    }
-
-    @FXML
-    private void register(MouseEvent event) {
+    private void registro(MouseEvent event) {
     }
     
 }
