@@ -51,7 +51,6 @@ public class VentanaVendedorController implements Initializable {
         }
         
     }
-    
     public ArrayList<String[]> verOpciones(String nomFile){
         ArrayList<String[]> opciones = new ArrayList<>();
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(nomFile))){

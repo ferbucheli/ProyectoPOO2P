@@ -6,10 +6,12 @@
 package ec.edu.espol.controller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -62,6 +64,8 @@ public class VentanaRegistroVehiculoController implements Initializable{
     private Pane pane1;
     @FXML
     private ImageView imv1;
+    
+    private String rutaimg;
 
     /**
      * Initializes the controller class.
@@ -85,22 +89,26 @@ public class VentanaRegistroVehiculoController implements Initializable{
 
     @FXML
     private void registrar(MouseEvent event) {
-        File img = new File(imv1.getImage().getUrl());
+
+        File img = new File(this.rutaimg);
         String ruta = img.getAbsolutePath().substring(img.getAbsolutePath().lastIndexOf("\\") + 1);
         String newPath = "img/";
         
         File directory = new File(newPath);
         if(!directory.exists())
             directory.mkdirs();
-        
-        File sourceFile = new File(img.getAbsolutePath());
+        int index = this.rutaimg.indexOf("/");
+        String sourceRuta = this.rutaimg.substring(index + 1);
+        File sourceFile = new File(sourceRuta.trim());
         File destination = new File(newPath + ruta);
+        
         
         try {
             Files.copy(sourceFile.toPath(), destination.toPath());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        
     }
     
     public static ArrayList<String[]> leerCaracteristicas(String nomFile){
@@ -133,7 +141,8 @@ public class VentanaRegistroVehiculoController implements Initializable{
         FileChooser filechooser = new FileChooser();
         Stage stage = (Stage) aPane1.getScene().getWindow();
         File file = filechooser.showOpenDialog(stage);
-        Image img = new Image(file.toURI().toString());
+        this.rutaimg = file.toURI().toString();
+        Image img = new Image(this.rutaimg);
         
         if(file != null){
             imv1.setImage(img);

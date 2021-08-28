@@ -50,7 +50,7 @@ public class Comprador extends Usuario implements Serializable{
     
     //comportamientos
     
-    
+    /*
     public static ArrayList<Vehiculo> busquedaVehiculo(Scanner sc, ArrayList<Vehiculo> vehiculos){
         String tipo;
         double rmin, rmax, pmin, pmax;
@@ -172,7 +172,7 @@ public class Comprador extends Usuario implements Serializable{
     }
     
     
-    
+    /*
     public void ponerOferta(Vehiculo v, String nomfile, Scanner sc){
         sc.useDelimiter("\n");
         System.out.println("NUEVA OFERTA");
@@ -207,7 +207,7 @@ public class Comprador extends Usuario implements Serializable{
         }
        
     }
-    
+    */
     //extras
     
     public static Comprador searchByID(ArrayList<Comprador> compradores, int id){
