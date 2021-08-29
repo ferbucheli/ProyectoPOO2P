@@ -65,8 +65,7 @@ public class VentanaVendedorController implements Initializable {
         return opciones;
     }
     
-    public void setInformacion(ArrayList<Vehiculo> vehiculos, ArrayList<Usuario> usuarios, Usuario usuario){
-        this.vehiculos = vehiculos;
+    public void setInformacion(ArrayList<Usuario> usuarios, Usuario usuario){
         this.usuarios = usuarios;
         this.usuario = usuario;
     }

@@ -5,6 +5,8 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.model.Usuario;
+import ec.edu.espol.model.Vehiculo;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -22,6 +24,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -66,6 +69,8 @@ public class VentanaRegistroVehiculoController implements Initializable{
     private ImageView imv1;
     
     private String rutaimg;
+    private Usuario usuario;
+    private ArrayList<Usuario> usuarios;
 
     /**
      * Initializes the controller class.
@@ -89,26 +94,18 @@ public class VentanaRegistroVehiculoController implements Initializable{
 
     @FXML
     private void registrar(MouseEvent event) {
-
-        File img = new File(this.rutaimg);
-        String ruta = img.getAbsolutePath().substring(img.getAbsolutePath().lastIndexOf("\\") + 1);
-        String newPath = "img/";
-        
-        File directory = new File(newPath);
-        if(!directory.exists())
-            directory.mkdirs();
-        int index = this.rutaimg.indexOf("/");
-        String sourceRuta = this.rutaimg.substring(index + 1);
-        File sourceFile = new File(sourceRuta.trim());
-        File destination = new File(newPath + ruta);
-        
-        
-        try {
-            Files.copy(sourceFile.toPath(), destination.toPath());
-        } catch (IOException ex) {
-            ex.printStackTrace();
+     
+        ArrayList<String> atributos = recuperarInfo();
+        String rutaImg = guardarImagen();
+        if(rButton1.isSelected()){                      
+            Vehiculo auto = new Vehiculo(0, "auto", 0, atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), atributos.get(9), atributos.get(10), rutaImg);
+        } else if(rButton2.isSelected()){
+            Vehiculo camioneta = new Vehiculo(0, "auto", this.usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), atributos.get(9), atributos.get(10), atributos.get(11), rutaImg);
+        } else if(rButton3.isSelected()){
+            Vehiculo moto = new Vehiculo(0, "auto", this.usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), rutaImg);
         }
-        
+        gridPane.getChildren().clear();
+        imv1.getImage().cancel();
     }
     
     public static ArrayList<String[]> leerCaracteristicas(String nomFile){
@@ -148,17 +145,38 @@ public class VentanaRegistroVehiculoController implements Initializable{
             imv1.setImage(img);
         }
     }
-    
-    public void guardarImagen(ArrayList<File> imagenes, String nomFile){
-        
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomFile))) {
-            out.writeObject(imagenes);
 
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+    public ArrayList<String> recuperarInfo(){
+        ArrayList<String> atributos = new ArrayList<>();
+        for(Node node : gridPane.getChildren()){
+            if(GridPane.getColumnIndex(node) == 1){
+                TextField txtf = (TextField)node;
+                atributos.add(txtf.getText());
+            }
+        }
+        return atributos;
+    }
+    
+    public String guardarImagen(){
+        File img = new File(this.rutaimg);
+        String ruta = img.getAbsolutePath().substring(img.getAbsolutePath().lastIndexOf("\\") + 1);
+        String newPath = "img/";
+        File directory = new File(newPath);
+        int index = this.rutaimg.indexOf("/");
+        String sourceRuta = this.rutaimg.substring(index + 1);
+        File sourceFile = new File(sourceRuta.trim());
+        File destination = new File(newPath + ruta);
+        try {
+            Files.copy(sourceFile.toPath(), destination.toPath());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        return ruta;
+    }
+    
+    public void setInformacion(ArrayList<Usuario> usuarios, Usuario usuario){
+        this.usuarios = usuarios;
+        this.usuario = usuario;
     }
     
 }
