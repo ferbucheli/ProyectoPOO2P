@@ -241,7 +241,7 @@ public class Usuario implements Serializable{
         return correos.contains(correo);
     }
     
-    public Usuario extraerUsuario(ArrayList<Usuario> usuarios, String correo){
+    public static Usuario extraerUsuario(ArrayList<Usuario> usuarios, String correo){
         for(Usuario u : usuarios){
             if(Objects.equals(u.getCorreo(), correo))
                 return u;

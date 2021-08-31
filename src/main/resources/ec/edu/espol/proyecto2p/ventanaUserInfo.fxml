@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -12,15 +11,14 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.VentanaUserInfoController">
    <children>
-      <Button fx:id="btnContrasena" layoutX="395.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#cb" text="Cambiar Contraseña" />
+      <Button fx:id="btnContrasena" layoutX="395.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#cambiarContrasena" text="Cambiar Contraseña" />
       <Text layoutX="127.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informacion de Usuario">
          <font>
             <Font name="Arial Bold" size="31.0" />
          </font>
       </Text>
       <Button fx:id="btnRol" layoutX="408.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#cambiarRol" text="Cambiar de Rol" />
-      <VBox fx:id="contrasenaPane" layoutX="346.0" layoutY="135.0" onMouseClicked="#cb" prefHeight="106.0" prefWidth="215.0" />
-      <HBox fx:id="rolPane" layoutX="353.0" layoutY="282.0" prefHeight="96.0" prefWidth="212.0" />
+      <VBox fx:id="contrasenaPane" layoutX="332.0" layoutY="143.0" onMouseClicked="#cb" prefHeight="106.0" prefWidth="257.0" />
       <GridPane fx:id="gridPaneInfo" layoutX="27.0" layoutY="102.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -41,5 +39,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rol Actual:" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
          </children>
       </GridPane>
+      <VBox fx:id="rolPane" layoutX="295.0" layoutY="284.0" onMouseClicked="#cb" prefHeight="106.0" prefWidth="306.0" />
+      <Button fx:id="btnRegresar" layoutX="27.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#regresar" text="&lt;- Regresar" />
    </children>
 </AnchorPane>

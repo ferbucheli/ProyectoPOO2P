@@ -115,8 +115,8 @@ public class VentanaVendedorController implements Initializable {
                     try{
                         FXMLLoader fxmlloader = App.loadFXMLLoader("ventanaOfertas");
                         App.setRoot(fxmlloader);
-                        VentanaOfertasController voc = fxmlloader.getController();
-                        voc.setInformacion(usuarios, usuario);
+                        //VentanaOfertasController voc = fxmlloader.getController();
+                        //voc.setInformacion(usuarios, usuario);
                     } catch(IOException ex){
                         System.out.println(ex.getMessage());
                     }
@@ -126,8 +126,8 @@ public class VentanaVendedorController implements Initializable {
                     try{
                         FXMLLoader fxmlloader = App.loadFXMLLoader("PresentacionVehiculos");
                         App.setRoot(fxmlloader);
-                        PresentacionVehiculosController pvc = fxmlloader.getController();
-                        pvc.setInformacion(usuarios, usuario);
+                        //PresentacionVehiculosController pvc = fxmlloader.getController();
+                        //pvc.setInformacion(usuarios, usuario);
                     } catch(IOException ex){
                         System.out.println(ex.getMessage());
                     }
