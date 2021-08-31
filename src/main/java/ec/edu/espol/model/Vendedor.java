@@ -136,30 +136,9 @@ public class Vendedor extends Usuario implements Serializable{
         return null;
     }
     
-    public static int menuVendedor(Scanner sc){
-        
-        
-        System.out.println("1. Ingresar nuevo vendedor\n2. Registrar un vehiculo\n3. Aceptar Ofertas\n4. Regresar"+"\n");
-        int opcion = sc.nextInt();
-        
-        System.out.println(" -------------------------------------------------------------------------------- ");
-        return opcion;
-    }
+  
     
     
-    public static Vendedor inicioSesionV(Scanner sc) throws NoSuchAlgorithmException{
-        String correo;
-        String clave;
-
-        do{
-            System.out.println( "Introduzca su correo electrónico: " );
-            correo = sc.next().toLowerCase();
-            System.out.println( "Introduzca su clave: " );
-            clave = sc.next();
-        }while(!Usuario.validarUsuario(correo,clave,"vendedores.txt"));
-        Vendedor u = new Vendedor(Usuario.recuperarUsuario(correo, "vendedores.txt"));
-        System.out.println(" -------------------------------------------------------------------------------- ");
-        return u;
-    }
+    
     */
 }

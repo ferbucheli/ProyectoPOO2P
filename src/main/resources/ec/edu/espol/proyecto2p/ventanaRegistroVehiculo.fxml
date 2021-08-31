@@ -39,8 +39,10 @@
             <RowConstraints />
          </rowConstraints>
       </GridPane>
-      <Button fx:id="btnRegistrar" layoutX="374.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#registrar" text="Registrar Vehiculo" />
+      <Button fx:id="btnRegistrar" layoutX="374.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#registrar" text="Registrar Vehiculo" />
       <Button fx:id="btnAdjuntar" layoutX="378.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#buscarImagen" text="Adjuntar Imagen" />
       <ImageView fx:id="imv1" fitHeight="196.0" fitWidth="281.0" layoutX="302.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnLimpiar" layoutX="288.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#limpiar" text="Limpiar" />
+      <Button fx:id="btnRegresar" layoutX="442.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#regresarVentana" text="Regresar" />
    </children>
 </AnchorPane>

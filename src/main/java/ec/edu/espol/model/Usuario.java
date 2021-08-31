@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -150,6 +151,16 @@ public class Usuario implements Serializable{
         return usuarios;
     }
     
+    public ArrayList<String> informacionUsuario(){
+        ArrayList<String> info = new ArrayList<>();
+        info.add(this.nombres);
+        info.add(this.apellidos);
+        info.add(this.organizacion);
+        info.add(this.correo);
+        info.add(this.rol);
+        return info;
+    }
+    
     // funciones recuperadoras
     
     public static void guardarUsuarios(String nomFile,ArrayList<Usuario> usuarios){
@@ -230,6 +241,14 @@ public class Usuario implements Serializable{
         return correos.contains(correo);
     }
     
+    public Usuario extraerUsuario(ArrayList<Usuario> usuarios, String correo){
+        for(Usuario u : usuarios){
+            if(Objects.equals(u.getCorreo(), correo))
+                return u;
+        }
+        return null;
+    }
+    
     //sobreescrituras
     @Override
     public boolean equals(Object o){
@@ -248,4 +267,6 @@ public class Usuario implements Serializable{
         String s = "USUARIO\nNombres: " +this.nombres + "\nApellidos: " + this.apellidos+ "\nCorreo Electrónico: " + this.correo + "\nRol: " + this.rol;
         return s;
     }
+    
+   
 }

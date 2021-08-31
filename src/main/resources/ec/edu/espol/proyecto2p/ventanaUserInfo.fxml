@@ -2,13 +2,15 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="ec.edu.espol.controller.VentanaUserInfoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.VentanaUserInfoController">
    <children>
       <Button fx:id="btnContrasena" layoutX="395.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#cb" text="Cambiar Contraseña" />
       <Text layoutX="127.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informacion de Usuario">
@@ -16,13 +18,28 @@
             <Font name="Arial Bold" size="31.0" />
          </font>
       </Text>
-      <Button fx:id="btnRol" layoutX="408.0" layoutY="261.0" mnemonicParsing="false" onMouseClicked="#cambiarRol" text="Cambiar de Rol" />
-      <VBox fx:id="contrasenaPane" layoutX="349.0" layoutY="147.0" onMouseClicked="#cb" prefHeight="106.0" prefWidth="215.0" />
-      <HBox fx:id="rolPane" layoutX="349.0" layoutY="290.0" prefHeight="96.0" prefWidth="215.0" />
-      <Text layoutX="18.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombres:" />
-      <Text layoutX="21.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos:" />
-      <Text layoutX="22.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo:" textAlignment="JUSTIFY" />
-      <Text layoutX="17.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organizacion:" />
-      <Text layoutX="20.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rol Actual:" />
+      <Button fx:id="btnRol" layoutX="408.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#cambiarRol" text="Cambiar de Rol" />
+      <VBox fx:id="contrasenaPane" layoutX="346.0" layoutY="135.0" onMouseClicked="#cb" prefHeight="106.0" prefWidth="215.0" />
+      <HBox fx:id="rolPane" layoutX="353.0" layoutY="282.0" prefHeight="96.0" prefWidth="212.0" />
+      <GridPane fx:id="gridPaneInfo" layoutX="27.0" layoutY="102.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombres:" GridPane.halignment="LEFT" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos:" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Organizacion:" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Correo:" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rol Actual:" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>
