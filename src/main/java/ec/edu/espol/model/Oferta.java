@@ -22,7 +22,7 @@ public class Oferta implements Serializable {
     private int id_Vehiculo;
     private double precio_ofertado;
     private Vehiculo vehiculo;
-    private Comprador comprador;
+    private Usuario usuario;
     private String correo_comprador;
     private static final long serialVersionUID = 93423423423423234L;
     
@@ -58,10 +58,6 @@ public class Oferta implements Serializable {
         return vehiculo;
     }
 
-    public Comprador getComprador() {
-        return comprador;
-    }
-
     public String getCorreo_comprador() {
         return correo_comprador;
     }
@@ -84,10 +80,6 @@ public class Oferta implements Serializable {
 
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
-    }
-
-    public void setComprador(Comprador comprador) {
-        this.comprador = comprador;
     }
 
     public void setCorreo_comprador(String correo_comprador) {
