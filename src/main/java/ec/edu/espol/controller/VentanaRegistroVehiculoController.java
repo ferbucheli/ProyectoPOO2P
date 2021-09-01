@@ -144,7 +144,7 @@ public class VentanaRegistroVehiculoController implements Initializable{
     
     public void agregarCaracteristicas(String[] caracteristicas){
         for(int i = 1; i < caracteristicas.length; i++){
-            Text txt = new Text(caracteristicas[i]);
+            Text txt = new Text(caracteristicas[i] + ":");
             TextField txtf = new TextField();
             GridPane.setConstraints(txt, 0, i-1);
             GridPane.setConstraints(txtf, 1, i-1);

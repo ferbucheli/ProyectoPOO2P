@@ -23,7 +23,7 @@
             <Font size="13.0" />
          </font>
       </Text>
-      <RadioButton fx:id="rButton1" layoutX="14.0" layoutY="81.0" mnemonicParsing="false" onAction="#registroTipo" prefHeight="16.0" prefWidth="62.0" text="Carro">
+      <RadioButton fx:id="rButton1" layoutX="14.0" layoutY="81.0" mnemonicParsing="false" onAction="#registroTipo" prefHeight="16.0" prefWidth="62.0" text="Auto">
          <toggleGroup>
             <ToggleGroup fx:id="tipo" />
          </toggleGroup>
@@ -43,6 +43,6 @@
       <Button fx:id="btnAdjuntar" layoutX="378.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#buscarImagen" text="Adjuntar Imagen" />
       <ImageView fx:id="imv1" fitHeight="196.0" fitWidth="281.0" layoutX="302.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="btnLimpiar" layoutX="288.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#limpiar" text="Limpiar" />
-      <Button fx:id="btnRegresar" layoutX="442.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#regresarVentana" text="Regresar" />
+      <Button fx:id="btnRegresar" layoutX="442.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#regresarVentana" text="&lt;- Regresar" />
    </children>
 </AnchorPane>
