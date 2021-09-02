@@ -277,5 +277,13 @@ public class Vehiculo implements Serializable{
         }
         return vehiculos;
     }
+    
+    public static void agregarVehiculo(ArrayList<Usuario> usuarios, Usuario usuario, Vehiculo vehiculo){
+        for(Usuario u : usuarios){
+            if(u.getCorreo().equals(usuario.getCorreo())){
+                u.getVehiculos().add(vehiculo);
+            }
+        }
+    }
      
 }
