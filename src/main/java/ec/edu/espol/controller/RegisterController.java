@@ -67,8 +67,7 @@ public class RegisterController implements Initializable {
         String mail;
         String org = organización.getText();
         String pass = contraseña.getText();
-        ArrayList vehiculos;
-        ArrayList Ofertas;
+
         
         int id = Util.nextID("Usuario.ser"); // colocar el nombre del archivo
         try {
