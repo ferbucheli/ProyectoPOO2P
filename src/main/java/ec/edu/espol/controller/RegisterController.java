@@ -9,6 +9,7 @@ import ec.edu.espol.exceptions.CasilleroException;
 import ec.edu.espol.exceptions.CorreoException;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.proyecto2p.App;
+import ec.edu.espol.util.GFG;
 import ec.edu.espol.util.Util;
 import java.io.IOException;
 import java.net.URL;

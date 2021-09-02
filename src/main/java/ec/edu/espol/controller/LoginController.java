@@ -5,6 +5,8 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.exceptions.CasilleroException;
+import ec.edu.espol.exceptions.LoginException;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.proyecto2p.App;
 import java.io.IOException;
@@ -14,15 +16,13 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -32,7 +32,6 @@ import javafx.scene.text.Text;
 public class LoginController implements Initializable {
     
     private ArrayList<Usuario> usuarios;
-    private Usuario usuario;
 
     @FXML
     private GridPane GridPaneTop;
@@ -60,12 +59,33 @@ public class LoginController implements Initializable {
     @FXML
     private void login(MouseEvent event) {
         try {
-            FXMLLoader fxmlloader  = App.loadFXMLLoader("ventanaVendedor");
-            App.setRoot(fxmlloader);
-            VentanaVendedorController ventanaV = fxmlloader.getController();
-            ventanaV.setInformacion(usuarios, usuario);
+            if((password.getText().equals(""))||(user.getText().equals(""))){
+                throw new CasilleroException("Debe llenar todos los campos");
+            }
+            else{
+                for(Usuario p:usuarios){
+                if((p.getCorreo().equals(user.getText()))&&(p.getClave().equals(password.getText()))){
+                    FXMLLoader fxmlloader  = App.loadFXMLLoader("ventanaVendedor");
+                    App.setRoot(fxmlloader);
+                    VentanaVendedorController ventanaV = fxmlloader.getController();
+                    ventanaV.setInformacion(usuarios, p);
+                }
+                else{
+                    try {
+                        throw new LoginException("EL usuario y la contraseña son incorrectos");
+                    } catch (LoginException ex) {
+                        Alert a = new Alert(AlertType.ERROR,ex.getMessage());
+                        a.show();
+                        }
+                    }
+                }
+            }    
+            
         } catch (IOException ex) {
             ex.printStackTrace();
+        } catch (CasilleroException ex) {
+            Alert a = new Alert(AlertType.ERROR,ex.getMessage());
+            a.show();
         }
         
     }
@@ -82,7 +102,7 @@ public class LoginController implements Initializable {
     }
     
     public void setUsuario(int id,String mail,String pass,String name,String lastname,String org,String rol){
-        usuario = new Usuario(id,mail,pass,name,lastname,org,rol);
+        Usuario usuario = new Usuario(id,mail,pass,name,lastname,org,rol);
         usuarios.add(usuario);
     }
     
