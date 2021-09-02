@@ -76,4 +76,5 @@ public class LoginController implements Initializable {
         Usuario user = new Usuario(id,mail,pass,name,lastname,org,rol);
         usuarios.add(user);
     }
+   
 }
