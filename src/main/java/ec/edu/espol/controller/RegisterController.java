@@ -5,6 +5,8 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.exceptions.CasilleroException;
+import ec.edu.espol.exceptions.CorreoException;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.proyecto2p.App;
 import ec.edu.espol.util.Util;
@@ -17,6 +19,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -59,18 +63,49 @@ public class RegisterController implements Initializable {
     private void registro(MouseEvent event) {
         String name = nombres.getText();
         String lastname = apellidos.getText();
-        String mail = correo.getText();
+        String mail;
         String org = organización.getText();
         String pass = contraseña.getText();
         ArrayList vehiculos;
         ArrayList Ofertas;
+        
         int id = Util.nextID("Usuario.ser"); // colocar el nombre del archivo
         try {
-            
-            FXMLLoader fxmlloader  = App.loadFXMLLoader("login");
-            App.setRoot(fxmlloader);
-            LoginController lc = fxmlloader.getController();
-            lc.setUsuario(id, mail, pass, name, lastname, org, this.rol);
+            if(Usuario.validarCorreo(correo.getText())){
+                mail = correo.getText();
+                if((name.equals(""))||(lastname.equals(""))||(mail.equals(""))||(org.equals(""))||(pass.equals(""))){
+                    try {
+                        throw new CasilleroException("Debe rellenar todos los casilleros");
+                    } catch (CasilleroException ex) {
+                        Alert a = new Alert(AlertType.ERROR,ex.getMessage());
+                        a.show();
+                    }
+                }
+                else if(Usuario.correoExistente("Usuario.ser", mail)){
+                    FXMLLoader fxmlloader  = App.loadFXMLLoader("login");
+                    App.setRoot(fxmlloader);
+                    LoginController lc = fxmlloader.getController();
+                    lc.setUsuario(id, mail, pass, name, lastname, org, this.rol);
+                }
+                else{
+                    try {
+                        throw new CorreoException("El correo ya ha sido registrado");
+                    } catch (CorreoException ex) {
+                        Alert a = new Alert(AlertType.ERROR,ex.getMessage());
+                        a.show();
+                    }
+                }
+                
+            }
+        else{
+            try {
+                throw new CorreoException("El correo ingresado es incorrecto");
+            } catch (CorreoException ex) {
+                Alert a = new Alert(AlertType.ERROR,ex.getMessage());
+                a.show();
+            }
+
+        }
         } catch (IOException ex) {
             ex.printStackTrace();
         }

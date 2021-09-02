@@ -32,6 +32,7 @@ import javafx.scene.text.Text;
 public class LoginController implements Initializable {
     
     private ArrayList<Usuario> usuarios;
+    private Usuario usuario;
 
     @FXML
     private GridPane GridPaneTop;
@@ -58,6 +59,14 @@ public class LoginController implements Initializable {
 
     @FXML
     private void login(MouseEvent event) {
+        try {
+            FXMLLoader fxmlloader  = App.loadFXMLLoader("ventanaVendedor");
+            App.setRoot(fxmlloader);
+            VentanaVendedorController ventanaV = fxmlloader.getController();
+            ventanaV.setInformacion(usuarios, usuario);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         
     }
 
@@ -73,7 +82,8 @@ public class LoginController implements Initializable {
     }
     
     public void setUsuario(int id,String mail,String pass,String name,String lastname,String org,String rol){
-        Usuario user = new Usuario(id,mail,pass,name,lastname,org,rol);
-        usuarios.add(user);
+        usuario = new Usuario(id,mail,pass,name,lastname,org,rol);
+        usuarios.add(usuario);
     }
+    
 }
