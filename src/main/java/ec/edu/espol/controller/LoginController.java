@@ -5,9 +5,14 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.model.Usuario;
+import ec.edu.espol.proyecto2p.App;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -25,6 +30,8 @@ import javafx.scene.text.Text;
  * @author Fernando
  */
 public class LoginController implements Initializable {
+    
+    private ArrayList<Usuario> usuarios;
 
     @FXML
     private GridPane GridPaneTop;
@@ -56,6 +63,17 @@ public class LoginController implements Initializable {
 
     @FXML
     private void register(MouseEvent event) {
+        try {
+            FXMLLoader fxmlloader  = App.loadFXMLLoader("register");
+            App.setRoot(fxmlloader);
+            RegisterController rc = fxmlloader.getController();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
+    public void setUsuario(int id,String mail,String pass,String name,String lastname,String org,String rol){
+        Usuario user = new Usuario(id,mail,pass,name,lastname,org,rol);
+        usuarios.add(user);
+    }
 }
