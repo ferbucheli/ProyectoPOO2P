@@ -36,7 +36,6 @@ public class VentanaVendedorController implements Initializable {
     private Text txt1;
 
     private ArrayList<Vehiculo> vehiculos;
-    private ArrayList<Usuario> usuarios;
     private Usuario usuario;
     @FXML
     private Button btnUserInfo;
@@ -66,8 +65,7 @@ public class VentanaVendedorController implements Initializable {
         return opciones;
     }
     
-    public void setInformacion(ArrayList<Usuario> usuarios, Usuario usuario){
-        this.usuarios = usuarios;
+    public void setInformacion(Usuario usuario){
         this.usuario = usuario;
     }
     
@@ -105,7 +103,7 @@ public class VentanaVendedorController implements Initializable {
                         FXMLLoader fxmlloader = App.loadFXMLLoader("ventanaRegistroVehiculo");
                         App.setRoot(fxmlloader);
                         VentanaRegistroVehiculoController vrc = fxmlloader.getController();
-                        vrc.setInformacion(usuarios, usuario);
+                        vrc.setInformacion(usuario);
                     } catch(IOException ex){
                         System.out.println(ex.getMessage());
                     }
@@ -142,7 +140,7 @@ public class VentanaVendedorController implements Initializable {
             FXMLLoader fxmlloader = App.loadFXMLLoader("ventanaUserInfo");
             App.setRoot(fxmlloader);
             VentanaUserInfoController vui = fxmlloader.getController();
-            vui.setInformacion(usuarios, usuario);
+            vui.setInformacion(usuario);
         } catch(IOException ex){
             ex.printStackTrace();
         }

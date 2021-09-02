@@ -10,6 +10,7 @@ import ec.edu.espol.exceptions.ImagenException;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
 import ec.edu.espol.proyecto2p.App;
+import ec.edu.espol.util.Util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -77,6 +78,7 @@ public class VentanaRegistroVehiculoController implements Initializable{
     private String rutaimg;
     private Usuario usuario;
     private ArrayList<Usuario> usuarios;
+    private ArrayList<Vehiculo> vehiculos;
     @FXML
     private Button btnLimpiar;
     @FXML
@@ -88,6 +90,8 @@ public class VentanaRegistroVehiculoController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.caracteristicas = leerCaracteristicas("caracteristicas.txt");
+        this.usuarios = Usuario.cargarUsuarios("usuarios.ser");
+        this.vehiculos = Vehiculo.extraerVehiculos(this.usuarios);
     }    
 
     @FXML
@@ -108,11 +112,20 @@ public class VentanaRegistroVehiculoController implements Initializable{
             ArrayList<String> atributos = recuperarInfo();
             String rutaImg = guardarImagen();
             if(rButton1.isSelected()){
-                Vehiculo auto = new Vehiculo(0, "auto", 0, atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), atributos.get(9), atributos.get(10), rutaImg);
+                int id = Util.nextIDVehiculo(this.vehiculos);
+                Vehiculo auto = new Vehiculo(id, "auto", usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), atributos.get(9), atributos.get(10), rutaImg);
+                Vehiculo.agregarVehiculo(usuarios, usuario, auto);
+                Util.actualizar(usuarios, "usuarios.ser");
             } else if(rButton2.isSelected()){
+                int id = Util.nextIDVehiculo(this.vehiculos);
                 Vehiculo camioneta = new Vehiculo(0, "auto", this.usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), atributos.get(9), atributos.get(10), atributos.get(11), rutaImg);
+                Vehiculo.agregarVehiculo(usuarios, usuario, camioneta);
+                Util.actualizar(usuarios, "usuarios.ser");
             } else if(rButton3.isSelected()){
+                int id = Util.nextIDVehiculo(this.vehiculos);
                 Vehiculo moto = new Vehiculo(0, "auto", this.usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), rutaImg);
+                Vehiculo.agregarVehiculo(usuarios, usuario, moto);
+                Util.actualizar(usuarios, "usuarios.ser");
             }
             gridPane.getChildren().clear();
             imv1.getImage().cancel();
@@ -198,8 +211,7 @@ public class VentanaRegistroVehiculoController implements Initializable{
         return ruta;
     }
     
-    public void setInformacion(ArrayList<Usuario> usuarios, Usuario usuario){
-        this.usuarios = usuarios;
+    public void setInformacion(Usuario usuario){
         this.usuario = usuario;
     }
 
@@ -219,7 +231,7 @@ public class VentanaRegistroVehiculoController implements Initializable{
             FXMLLoader fxmlloader = App.loadFXMLLoader("ventanaVendedor");
             App.setRoot(fxmlloader);
             VentanaVendedorController vvc = fxmlloader.getController();
-            vvc.setInformacion(usuarios, usuario);
+            vvc.setInformacion(usuario);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

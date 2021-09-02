@@ -9,6 +9,7 @@ import ec.edu.espol.exceptions.CasilleroException;
 import ec.edu.espol.exceptions.ContrasenaException;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.proyecto2p.App;
+import ec.edu.espol.util.Util;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class VentanaUserInfoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        this.usuarios = Usuario.cargarUsuarios("usuarios.ser");
     }    
 
     @FXML
@@ -83,8 +84,7 @@ public class VentanaUserInfoController implements Initializable {
         }
     }
     
-    public void setInformacion(ArrayList<Usuario> usuarios, Usuario usuario){
-        this.usuarios = usuarios;
+    public void setInformacion(Usuario usuario){
         this.usuario = usuario;
         ponerDatos();
     }
@@ -124,7 +124,7 @@ public class VentanaUserInfoController implements Initializable {
             FXMLLoader fxmlloader = App.loadFXMLLoader("ventanaVendedor");
             App.setRoot(fxmlloader);
             VentanaVendedorController vvc = fxmlloader.getController();
-            vvc.setInformacion(usuarios, usuario);
+            vvc.setInformacion(usuario);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -151,6 +151,8 @@ public class VentanaUserInfoController implements Initializable {
                 else if(!contrasena.equals(contrasenaC))
                     throw new ContrasenaException("Las contraseñas deben coincidir!");
                 usuario.setClave(contrasena);
+                this.usuarios = Usuario.actualizarClave(usuarios, usuario);
+                Util.actualizar(usuarios, "usuarios.ser");
                 contrasenaPane.getChildren().clear();
                 contrasenaOpened = false;
             } catch (CasilleroException ex) {
@@ -179,12 +181,21 @@ public class VentanaUserInfoController implements Initializable {
         Button btn = new Button("Cambiar");
         btn.setOnMouseClicked((MouseEvent eve)-> {
             //Usuario.extraerUsuario(usuarios, usuario.getCorreo());
-            if(r1.isSelected())
+            if(r1.isSelected()){
                 usuario.setRol(r1.getText().toLowerCase());
-            else if(r2.isSelected())
+                this.usuarios = Usuario.actualizarRol(usuarios, usuario);
+                Util.actualizar(usuarios, "usuarios.ser");
+            }    
+            else if(r2.isSelected()){
                 usuario.setRol(r2.getText().toLowerCase());
-            else if(r3.isSelected())
+                this.usuarios = Usuario.actualizarRol(usuarios, usuario);
+                Util.actualizar(usuarios, "usuarios.ser");
+            }
+            else if(r3.isSelected()){
                 usuario.setRol(r3.getText().toLowerCase());
+                this.usuarios = Usuario.actualizarRol(usuarios, usuario);
+                Util.actualizar(usuarios, "usuarios.ser");
+            }
             limpiar();
             ponerDatos();
             rolPane.getChildren().clear();

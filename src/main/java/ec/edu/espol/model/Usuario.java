@@ -128,28 +128,6 @@ public class Usuario implements Serializable{
     public void setOfertas(ArrayList<Oferta> ofertas) {
         this.ofertas = ofertas;
     }
-         
-    
-    public static void saveFile(String nomFile, ArrayList<Vehiculo> vehiculos) {
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomFile))){
-            out.writeObject(vehiculos);
-        } catch(IOException e){
-            System.out.println(e.getMessage());
-        }
-    }
-         
-    
-    public static ArrayList<Usuario> readFile(String nomfile) {
-        ArrayList<Usuario> usuarios = new ArrayList<>();
-        try(ObjectInputStream out = new ObjectInputStream(new FileInputStream(nomfile))){
-            usuarios = (ArrayList<Usuario>)out.readObject();
-        } catch(IOException e){
-            System.out.println(e.getMessage());
-        } catch(ClassNotFoundException e){
-            System.out.println(e.getMessage());
-        }
-        return usuarios;
-    }
     
     public ArrayList<String> informacionUsuario(){
         ArrayList<String> info = new ArrayList<>();
@@ -188,22 +166,6 @@ public class Usuario implements Serializable{
         return usuarios;
     } 
     
-    public static ArrayList<String> recuperarCorreos(String nomfile){
-        ArrayList<String> correos = new ArrayList<>();
-        try (Scanner sc = new Scanner(new File(nomfile))){
-            while(sc.hasNextLine()){
-                // linea = id|correo|...
-                String linea = sc.nextLine();
-                String[] tokens = linea.split("\\|");
-                String correo = tokens[1];
-                correos.add(correo);
-            }
-        }
-        catch(Exception e){
- 
-        }
-        return correos;
-    }
     //recuperar con correo
     /*
     public static Usuario recuperarUsuario(String correo, String nomfile){
@@ -235,18 +197,24 @@ public class Usuario implements Serializable{
         return matcher.matches();
     }
     
-    //valida que el correo sea unico
-    public static boolean correoExistente(String correo,String nomfile){
-        ArrayList<String> correos = recuperarCorreos(nomfile);
-        return correos.contains(correo);
+    public static ArrayList<Usuario> actualizarClave(ArrayList<Usuario> usuarios, Usuario usuario){
+        ArrayList<Usuario> usuariosA = usuarios;
+        for(Usuario u : usuariosA){
+            if(u.getCorreo().equals(usuario.getCorreo())){
+                u.setClave(usuario.getClave());
+            }
+        }
+        return usuariosA;
     }
     
-    public static Usuario extraerUsuario(ArrayList<Usuario> usuarios, String correo){
-        for(Usuario u : usuarios){
-            if(Objects.equals(u.getCorreo(), correo))
-                return u;
+    public static ArrayList<Usuario> actualizarRol(ArrayList<Usuario> usuarios, Usuario usuario){
+        ArrayList<Usuario> usuariosA = usuarios;
+        for(Usuario u : usuariosA){
+            if(u.getCorreo().equals(usuario.getCorreo())){
+                u.setRol(usuario.getRol());
+            }
         }
-        return null;
+        return usuariosA;
     }
     
     //sobreescrituras
@@ -267,6 +235,4 @@ public class Usuario implements Serializable{
         String s = "USUARIO\nNombres: " +this.nombres + "\nApellidos: " + this.apellidos+ "\nCorreo Electrónico: " + this.correo + "\nRol: " + this.rol;
         return s;
     }
-    
-   
 }

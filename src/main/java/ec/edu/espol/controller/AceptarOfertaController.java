@@ -6,7 +6,7 @@
 package ec.edu.espol.controller;
 
 import ec.edu.espol.model.Vehiculo;
-import static ec.edu.espol.model.Vehiculo.cargarVehiculo;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -60,7 +60,7 @@ public class AceptarOfertaController implements Initializable {
     private TextField filterField;
     
     ObservableList<Vehiculo> dataList = FXCollections.observableArrayList();
-    Vehiculo T1=new Vehiculo("auto","ptt582","ford","focus",1.6,2008,90000,"azul","gasolina",4,"automatico",15000);
+    //Vehiculo T1=new Vehiculo("auto","ptt582","ford","focus",1.6,2008,90000,"azul","gasolina",4,"automatico",15000);
     @FXML
     private Button botonAceptar;
         
@@ -69,7 +69,7 @@ public class AceptarOfertaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         
-        this.Vehiculos=cargarVehiculo("proyectos.ser");
+        //this.Vehiculos=cargarVehiculo("proyectos.ser");
         dataList.addAll(this.Vehiculos);
         
                                
@@ -101,7 +101,7 @@ public class AceptarOfertaController implements Initializable {
 				// Compare first name and last name of every person with filter text.
 				String lowerCaseFilter = newValue.toLowerCase();
 				
-				if (String.valueOf(employee.getAño()).indexOf(lowerCaseFilter)!=-1) {
+				if (String.valueOf(employee.getAnio()).indexOf(lowerCaseFilter)!=-1) {
 					return true; // Filter matches first name.
 				} 
                                 
