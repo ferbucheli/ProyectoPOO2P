@@ -80,6 +80,11 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </ComboBox>
+            <Button mnemonicParsing="false" onMouseClicked="#volver" text="&lt;-- Volver" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
    </center>

@@ -218,13 +218,11 @@ public class Usuario implements Serializable{
         return usuariosA;
     }
     
-    public static boolean validarCorreo(ArrayList<Usuario> usuarios ,String mail){
-        for(Usuario u: usuarios){
+    public static boolean validarCorreo(ArrayList<Usuario> users,String mail){
+        System.out.println(users);
+        for(Usuario u: users){
             if(u.getCorreo().equals(mail)){
                 return false;
-            }
-            else{
-                return true;
             }
         }
         return true;

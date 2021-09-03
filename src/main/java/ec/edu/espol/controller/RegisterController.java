@@ -6,6 +6,7 @@
 package ec.edu.espol.controller;
 
 import ec.edu.espol.exceptions.CasilleroException;
+import ec.edu.espol.exceptions.ComboBException;
 import ec.edu.espol.exceptions.CorreoException;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.proyecto2p.App;
@@ -60,6 +61,7 @@ public class RegisterController implements Initializable {
         roles.add("Ambos");
         comboB.setItems(FXCollections.observableArrayList(roles));
         usuarios = Usuario.cargarUsuarios("usuario.ser");
+        System.out.println(usuarios);
     }
 
     @FXML
@@ -84,6 +86,9 @@ public class RegisterController implements Initializable {
                         a.show();
                     }
                 }
+                else if(this.rol==null){
+                    throw new ComboBException("Debe seleccionar algún rol");
+                }
                 else if(Usuario.validarCorreo(usuarios, mail)){
                     FXMLLoader fxmlloader  = App.loadFXMLLoader("login");
                     App.setRoot(fxmlloader);
@@ -106,13 +111,26 @@ public class RegisterController implements Initializable {
             Alert a = new Alert(AlertType.ERROR,ex.getMessage());
             a.show();
         
-    }
+    }   catch (ComboBException ex) {
+            Alert a = new Alert(AlertType.ERROR,ex.getMessage());
+            a.show();
+        }
     }
 
 
     @FXML
     private void tipo(ActionEvent event) {
-        rol = (String)comboB.getValue();
+        rol = (String)comboB.getValue();      
+    }
+
+    @FXML
+    private void volver(MouseEvent event) {
+        try {
+            FXMLLoader fxmlloader  = App.loadFXMLLoader("login");
+            App.setRoot(fxmlloader);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
 }
