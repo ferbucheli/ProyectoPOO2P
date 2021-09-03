@@ -64,6 +64,7 @@ public class RegisterController implements Initializable {
 
     @FXML
     private void registro(MouseEvent event) {
+        
         String name = nombres.getText();
         String lastname = apellidos.getText();
         String mail;
@@ -90,29 +91,24 @@ public class RegisterController implements Initializable {
                     lc.setUsuario(id, mail, pass, name, lastname, org, this.rol);
                 }
                 else{
-                    try {
                         throw new CorreoException("El correo ya ha sido registrado");
-                    } catch (CorreoException ex) {
-                        Alert a = new Alert(AlertType.ERROR,ex.getMessage());
-                        a.show();
-                    }
                 }
                 
             }
         else{
-            try {
                 throw new CorreoException("El correo ingresado es incorrecto");
-            } catch (CorreoException ex) {
-                Alert a = new Alert(AlertType.ERROR,ex.getMessage());
-                a.show();
             }
 
         }
-        } catch (IOException ex) {
+        catch (IOException ex) {
             ex.printStackTrace();
-        }
+        }catch (CorreoException ex) {
+            Alert a = new Alert(AlertType.ERROR,ex.getMessage());
+            a.show();
         
     }
+    }
+
 
     @FXML
     private void tipo(ActionEvent event) {

@@ -52,12 +52,14 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        usuarios = Usuario.cargarUsuarios("usuario.ser");
         
+        usuarios = Usuario.cargarUsuarios("usuario.ser");
+        System.out.println(usuarios);
     }    
 
     @FXML
     private void login(MouseEvent event) {
+        
         try {
             if((password.getText().equals(""))||(user.getText().equals(""))){
                 throw new CasilleroException("Debe llenar todos los campos");
