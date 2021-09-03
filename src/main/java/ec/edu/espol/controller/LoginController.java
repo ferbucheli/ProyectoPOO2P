@@ -52,7 +52,7 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // 
+        usuarios = Usuario.cargarUsuarios("usuario.ser");
         
     }    
 
@@ -68,7 +68,7 @@ public class LoginController implements Initializable {
                     FXMLLoader fxmlloader  = App.loadFXMLLoader("ventanaVendedor");
                     App.setRoot(fxmlloader);
                     VentanaVendedorController ventanaV = fxmlloader.getController();
-                    ventanaV.setInformacion(usuarios, p);
+                    ventanaV.setInformacion(p);
                 }
                 else{
                     try {
@@ -104,6 +104,7 @@ public class LoginController implements Initializable {
     public void setUsuario(int id,String mail,String pass,String name,String lastname,String org,String rol){
         Usuario usuario = new Usuario(id,mail,pass,name,lastname,org,rol);
         usuarios.add(usuario);
+        Usuario.guardarUsuarios("usuario.ser", usuarios);
     }
     
 }

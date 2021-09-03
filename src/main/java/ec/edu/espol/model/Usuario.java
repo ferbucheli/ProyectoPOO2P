@@ -217,6 +217,15 @@ public class Usuario implements Serializable{
         return usuariosA;
     }
     
+    public static boolean validarCorreo(ArrayList<Usuario> usuarios ,String mail){
+        for(Usuario u: usuarios){
+            if(!u.getCorreo().equals(mail)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     //sobreescrituras
     @Override
     public boolean equals(Object o){

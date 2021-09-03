@@ -33,7 +33,8 @@ import javafx.scene.input.MouseEvent;
  * @author yober
  */
 public class RegisterController implements Initializable {
-
+    
+    private ArrayList<Usuario> usuarios;
     private String rol;
     @FXML
     private TextField nombres;
@@ -58,6 +59,7 @@ public class RegisterController implements Initializable {
         roles.add("Comprador");
         roles.add("Ambos");
         comboB.setItems(FXCollections.observableArrayList(roles));
+        usuarios = Usuario.cargarUsuarios("usuario.ser");
     }
 
     @FXML
@@ -69,7 +71,7 @@ public class RegisterController implements Initializable {
         String pass = contraseña.getText();
 
         
-        int id = Util.nextID("Usuario.ser"); // colocar el nombre del archivo
+        int id = Util.nextIDUsuario(usuarios); // colocar el nombre del archivo
         try {
             if(Usuario.validarCorreo(correo.getText())){
                 mail = correo.getText();
@@ -81,7 +83,7 @@ public class RegisterController implements Initializable {
                         a.show();
                     }
                 }
-                else if(Usuario.correoExistente("Usuario.ser", mail)){
+                else if(Usuario.validarCorreo(usuarios, mail)){
                     FXMLLoader fxmlloader  = App.loadFXMLLoader("login");
                     App.setRoot(fxmlloader);
                     LoginController lc = fxmlloader.getController();
