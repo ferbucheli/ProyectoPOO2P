@@ -92,6 +92,6 @@ public class Oferta implements Serializable {
     
     @Override
     public String toString() {
-        return "Correo comprador: " + correo_comprador + "\nPrecio Ofertado: " + precio_ofertado;
+        return "Correo comprador: " + this.correo_comprador + "\nPrecio Ofertado: " + this.precio_ofertado;
     }
 }
