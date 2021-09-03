@@ -157,7 +157,8 @@ public class Usuario implements Serializable{
         try (ObjectInputStream out = new ObjectInputStream(new FileInputStream(nombreArchivo));) {
             usuarios = (ArrayList<Usuario>)out.readObject();  
         } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+            ArrayList<Usuario> users = new ArrayList<>();
+            Usuario.guardarUsuarios("usuario.ser", users);
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -219,11 +220,14 @@ public class Usuario implements Serializable{
     
     public static boolean validarCorreo(ArrayList<Usuario> usuarios ,String mail){
         for(Usuario u: usuarios){
-            if(!u.getCorreo().equals(mail)){
+            if(u.getCorreo().equals(mail)){
+                return false;
+            }
+            else{
                 return true;
             }
         }
-        return false;
+        return true;
     }
     
     //sobreescrituras
