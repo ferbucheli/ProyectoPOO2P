@@ -60,8 +60,7 @@ public class RegisterController implements Initializable {
         roles.add("Comprador");
         roles.add("Ambos");
         comboB.setItems(FXCollections.observableArrayList(roles));
-        usuarios = Usuario.cargarUsuarios("usuario.ser");
-        System.out.println(usuarios);
+        usuarios = Usuario.cargarUsuarios("usuarios.ser");
     }
 
     @FXML
@@ -90,10 +89,12 @@ public class RegisterController implements Initializable {
                     throw new ComboBException("Debe seleccionar algún rol");
                 }
                 else if(Usuario.validarCorreo(usuarios, mail)){
+                    Usuario nuevo = new Usuario(id, mail, pass, name, lastname, org, this.rol.toLowerCase());
+                    this.usuarios.add(nuevo);
+                    Util.actualizar(usuarios, "usuarios.ser");
                     FXMLLoader fxmlloader  = App.loadFXMLLoader("login");
                     App.setRoot(fxmlloader);
                     LoginController lc = fxmlloader.getController();
-                    lc.setUsuario(id, mail, pass, name, lastname, org, this.rol);
                 }
                 else{
                         throw new CorreoException("El correo ya ha sido registrado");
