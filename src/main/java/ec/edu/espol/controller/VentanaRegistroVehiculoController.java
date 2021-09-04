@@ -5,6 +5,12 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.exceptions.CasilleroException;
+import ec.edu.espol.exceptions.ImagenException;
+import ec.edu.espol.model.Usuario;
+import ec.edu.espol.model.Vehiculo;
+import ec.edu.espol.proyecto2p.App;
+import ec.edu.espol.util.Util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,7 +27,11 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -66,6 +76,13 @@ public class VentanaRegistroVehiculoController implements Initializable{
     private ImageView imv1;
     
     private String rutaimg;
+    private Usuario usuario;
+    private ArrayList<Usuario> usuarios;
+    private ArrayList<Vehiculo> vehiculos;
+    @FXML
+    private Button btnLimpiar;
+    @FXML
+    private Button btnRegresar;
 
     /**
      * Initializes the controller class.
@@ -73,6 +90,8 @@ public class VentanaRegistroVehiculoController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.caracteristicas = leerCaracteristicas("caracteristicas.txt");
+        this.usuarios = Usuario.cargarUsuarios("usuarios.ser");
+        this.vehiculos = Vehiculo.extraerVehiculos(this.usuarios);
     }    
 
     @FXML
@@ -88,27 +107,38 @@ public class VentanaRegistroVehiculoController implements Initializable{
     }
 
     @FXML
-    private void registrar(MouseEvent event) {
-
-        File img = new File(this.rutaimg);
-        String ruta = img.getAbsolutePath().substring(img.getAbsolutePath().lastIndexOf("\\") + 1);
-        String newPath = "img/";
-        
-        File directory = new File(newPath);
-        if(!directory.exists())
-            directory.mkdirs();
-        int index = this.rutaimg.indexOf("/");
-        String sourceRuta = this.rutaimg.substring(index + 1);
-        File sourceFile = new File(sourceRuta.trim());
-        File destination = new File(newPath + ruta);
-        
-        
+    private void registrar(MouseEvent event){
         try {
-            Files.copy(sourceFile.toPath(), destination.toPath());
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            ArrayList<String> atributos = recuperarInfo();
+            String rutaImg = guardarImagen();
+            if(rButton1.isSelected()){
+                int id = Util.nextIDVehiculo(this.vehiculos);
+                Vehiculo auto = new Vehiculo(id, "auto", usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), atributos.get(9), atributos.get(10), rutaImg);
+                Vehiculo.agregarVehiculo(usuarios, usuario, auto);
+                Util.actualizar(usuarios, "usuarios.ser");
+            } else if(rButton2.isSelected()){
+                int id = Util.nextIDVehiculo(this.vehiculos);
+                Vehiculo camioneta = new Vehiculo(0, "auto", this.usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), atributos.get(9), atributos.get(10), atributos.get(11), rutaImg);
+                Vehiculo.agregarVehiculo(usuarios, usuario, camioneta);
+                Util.actualizar(usuarios, "usuarios.ser");
+            } else if(rButton3.isSelected()){
+                int id = Util.nextIDVehiculo(this.vehiculos);
+                Vehiculo moto = new Vehiculo(0, "auto", this.usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), rutaImg);
+                Vehiculo.agregarVehiculo(usuarios, usuario, moto);
+                Util.actualizar(usuarios, "usuarios.ser");
+            }
+            gridPane.getChildren().clear();
+            imv1.getImage().cancel();
+        } catch (CasilleroException ex) {
+            Alert a = new Alert(AlertType.ERROR,"Usted debe de llenar todos los campos de informacion para el vehiculo");
+            a.show();
+        } catch(ImagenException ie){
+            Alert a = new Alert(AlertType.ERROR,ie.getMessage());
+            a.show();
+        } catch(NumberFormatException nfe){
+            Alert a = new Alert(AlertType.ERROR,"Ingresar datos numéricos correctamente");
+            a.show();
         }
-        
     }
     
     public static ArrayList<String[]> leerCaracteristicas(String nomFile){
@@ -127,7 +157,7 @@ public class VentanaRegistroVehiculoController implements Initializable{
     
     public void agregarCaracteristicas(String[] caracteristicas){
         for(int i = 1; i < caracteristicas.length; i++){
-            Text txt = new Text(caracteristicas[i]);
+            Text txt = new Text(caracteristicas[i] + ":");
             TextField txtf = new TextField();
             GridPane.setConstraints(txt, 0, i-1);
             GridPane.setConstraints(txtf, 1, i-1);
@@ -136,26 +166,72 @@ public class VentanaRegistroVehiculoController implements Initializable{
     }
 
     @FXML
-    private void buscarImagen(MouseEvent event) {
-        
+    private void buscarImagen(MouseEvent event){
         FileChooser filechooser = new FileChooser();
         Stage stage = (Stage) aPane1.getScene().getWindow();
         File file = filechooser.showOpenDialog(stage);
-        this.rutaimg = file.toURI().toString();
-        Image img = new Image(this.rutaimg);
-        
         if(file != null){
+            this.rutaimg = file.toURI().toString();
+            Image img = new Image(this.rutaimg);
             imv1.setImage(img);
         }
     }
-    
-    public void guardarImagen(ArrayList<File> imagenes, String nomFile){
-        
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomFile))) {
-            out.writeObject(imagenes);
 
-        } catch (FileNotFoundException ex) {
+    public ArrayList<String> recuperarInfo() throws CasilleroException{
+        ArrayList<String> atributos = new ArrayList<>();
+        for(Node node : gridPane.getChildren()){
+            if(GridPane.getColumnIndex(node) == 1){
+                TextField txtf = (TextField)node;
+                String caracteristica = txtf.getText();
+                if(caracteristica.equals("")){
+                    throw new CasilleroException("Casilleros de informacion de vehiculo vacíos");
+                }
+                atributos.add(caracteristica);
+            }
+        }
+        return atributos;
+    }
+    
+    public String guardarImagen() throws ImagenException{
+        if(this.rutaimg == null)
+            throw new ImagenException("No has seleccionado una imagen para tu vehiculo");
+        File img = new File(this.rutaimg);
+        String ruta = img.getAbsolutePath().substring(img.getAbsolutePath().lastIndexOf("\\") + 1);
+        String newPath = "img/";
+        File directory = new File(newPath);
+        int index = this.rutaimg.indexOf("/");
+        String sourceRuta = this.rutaimg.substring(index + 1);
+        File sourceFile = new File(sourceRuta.trim());
+        File destination = new File(newPath + ruta);
+        try {
+            Files.copy(sourceFile.toPath(), destination.toPath());
+        } catch (IOException ex) {
             ex.printStackTrace();
+        }
+        return ruta;
+    }
+    
+    public void setInformacion(Usuario usuario){
+        this.usuario = usuario;
+    }
+
+    @FXML
+    private void limpiar(MouseEvent event) {
+        for(Node node : gridPane.getChildren()){
+            if(GridPane.getColumnIndex(node) == 1){
+                TextField txtf = (TextField)node;
+                txtf.setText("");
+            }
+        }
+    }
+
+    @FXML
+    private void regresarVentana(MouseEvent event) {
+        try {
+            FXMLLoader fxmlloader = App.loadFXMLLoader("ventanaVendedor");
+            App.setRoot(fxmlloader);
+            VentanaVendedorController vvc = fxmlloader.getController();
+            vvc.setInformacion(usuario);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

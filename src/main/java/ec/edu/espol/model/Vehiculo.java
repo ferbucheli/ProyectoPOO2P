@@ -34,18 +34,18 @@ public class Vehiculo implements Serializable{
     private String vidrios;  
     private String transmision;
     private String traccion; 
-    private int id_vendedor;
-    private Vendedor vendedor;
+    private int id_usuario;
+    private Usuario usuario;
     private ArrayList<Oferta> ofertas;
     private String rutaImg;
     private static final long serialVersionUID = 93423423423423234L;
     
     // Constructor de Autos
  
-    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String rutaImg){
+    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String rutaImg){
         this.id = id;
         this.tipo = tipo;
-        this.id_vendedor = id_vendedor;
+        this.id_usuario = id_usuario;
         this.placa = placa;
         this.marca = marca;
         this.motor = motor;
@@ -63,10 +63,10 @@ public class Vehiculo implements Serializable{
     
     // Constructor de Camionetas
     
-    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String traccion, String rutaImg){
+    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String traccion, String rutaImg){
         this.id = id;
         this.tipo = tipo;
-        this.id_vendedor = id_vendedor;
+        this.id_usuario = id_usuario;
         this.placa = placa;
         this.marca = marca;
         this.motor = motor;
@@ -85,10 +85,10 @@ public class Vehiculo implements Serializable{
     
     // Constructor de motos
     
-    public Vehiculo(int id, String tipo, int id_vendedor, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String rutaImg){
+    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String rutaImg){
         this.id = id;
         this.tipo = tipo;
-        this.id_vendedor = id_vendedor;
+        this.id_usuario = id_usuario;
         this.placa = placa;
         this.marca = marca;
         this.motor = motor;
@@ -158,12 +158,12 @@ public class Vehiculo implements Serializable{
         return traccion;
     }
 
-    public int getId_vendedor() {
-        return id_vendedor;
+    public int getId_usuario() {
+        return id_usuario;
     }
 
-    public Vendedor getVendedor() {
-        return vendedor;
+    public Usuario getVendedor() {
+        return usuario;
     }
 
     public ArrayList<Oferta> getOfertas() {
@@ -230,12 +230,12 @@ public class Vehiculo implements Serializable{
         this.traccion = traccion;
     }
 
-    public void setId_vendedor(int id_vendedor) {
-        this.id_vendedor = id_vendedor;
+    public void setId_usuario(int id_vendedor) {
+        this.id_usuario = id_vendedor;
     }
 
-    public void setVendedor(Vendedor vendedor) {
-        this.vendedor = vendedor;
+    public void setVendedor(Usuario vendedor) {
+        this.usuario = vendedor;
     }
 
     public void setOfertas(ArrayList<Oferta> ofertas) {
@@ -276,6 +276,14 @@ public class Vehiculo implements Serializable{
             }
         }
         return vehiculos;
+    }
+    
+    public static void agregarVehiculo(ArrayList<Usuario> usuarios, Usuario usuario, Vehiculo vehiculo){
+        for(Usuario u : usuarios){
+            if(u.getCorreo().equals(usuario.getCorreo())){
+                u.getVehiculos().add(vehiculo);
+            }
+        }
     }
      
 }

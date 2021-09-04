@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 package ec.edu.espol.util;
-import ec.edu.espol.model.Comprador;
+
 import ec.edu.espol.model.Oferta;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
-import ec.edu.espol.model.Vendedor;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -26,71 +28,35 @@ public class Util {
     
     private Util(){}
     
-    //menu
-    
-    public static void menuInicio(){
-        System.out.println(" -------------------------------------------------------------------------------- ");
-        System.out.println("|Bienvenido al Sistema de Compra y Venta de Vehiculos SDF /PEREZ/DECASTRO/BUCHELI|");
-        System.out.println(" -------------------------------------------------------------------------------- ");
-        
-        System.out.println("");
-        System.out.println(String.format("%50s","Menu de Opciones"+"\n" ));
-        System.out.println(String.format("%45s","1. Vendedor"+"\n"));
-        System.out.println(String.format("%46s","2. Comprador"+"\n"));
-        System.out.println(String.format("%42s","3. Salir"+"\n"));
-    }
-    
-    public static boolean isNumeric(String str) { 
-        try {  
-          Double.parseDouble(str);  
-          return true;
-        } catch(NumberFormatException e){  
-          return false;  
-        }  
-    }
-   
-    
-    //extras
-    
-    public static int nextID(String nomfile) {
+    public static int nextIDUsuario(ArrayList<Usuario> usuarios) {
         int id = 0;
-        try (Scanner sc = new Scanner (new File(nomfile))) {
-            
-            while (sc.hasNextLine()) {
-                String linea = sc.nextLine();
-                String [] tokens = linea.split ("\\|");
-                id = Integer.parseInt(tokens[0]);
-            }
-            
-            
-        }catch(Exception e) {
-            
+        for(Usuario u : usuarios){
+            id = u.getId();
         }
         return id+1;
     }
     
-    public static void removerLinea(String nomFile, int id, int num){
-        File oldFile = new File(nomFile);
-        File newFile = new File("temp.txt");
-        try{
-            PrintWriter pw = new PrintWriter(new FileOutputStream(newFile), true);
-            Scanner sc = new Scanner(oldFile); 
-            while(sc.hasNextLine()){
-                String line = sc.nextLine();
-                String[] tokens = line.split("\\|");
-                if(Integer.parseInt(tokens[num]) != id){
-                    pw.println(String.join("|", tokens));
-                }
-            }
-            sc.close();
-            pw.flush();
-            pw.close();
-            oldFile.delete();
-            File dump = new File(nomFile);
-            newFile.renameTo(dump);
+    public static int nextIDVehiculo(ArrayList<Vehiculo> vehiculos){
+        int id = 0;
+        for(Vehiculo v : vehiculos){
+            id = v.getId();
         }
-        catch(Exception e){
-            System.out.println(e.getMessage());
+        return id+1;
+    }
+    
+    public static int nextIDOferta(ArrayList<Oferta> ofertas){
+        int id = 0;
+        for(Oferta o : ofertas){
+            id = o.getId();
+        }
+        return id+1;
+    }
+    
+    public static void actualizar(ArrayList<Usuario> usuarios, String nomfile){
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomfile))){
+            out.writeObject(usuarios);
+        } catch(IOException e){
+            e.printStackTrace();
         }
     }
 }

@@ -17,7 +17,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("ventanaRegistroVehiculo"), 640, 480);
+        scene = new Scene(loadFXML("login"), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
@@ -27,7 +27,7 @@ public class App extends Application {
     }
     
     public static void setRoot(FXMLLoader fxmlloader) throws IOException {
-        scene.setRoot(loadFXML(fxmlloader.load()));
+        scene.setRoot(fxmlloader.load());
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

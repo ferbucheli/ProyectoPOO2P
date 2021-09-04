@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,7 +46,11 @@ public class Usuario implements Serializable{
     public Usuario(int id, String correo, String clave, String nombres, String apellidos, String organizacion, String rol){
         this.id = id;
         this.correo = correo;
-        this.clave = clave;
+        try {
+            this.clave = GFG.toHexString(GFG.getSHA(clave));
+        } catch (NoSuchAlgorithmException ex) {
+            ex.printStackTrace();
+        }
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.organizacion = organizacion;
@@ -127,27 +132,15 @@ public class Usuario implements Serializable{
     public void setOfertas(ArrayList<Oferta> ofertas) {
         this.ofertas = ofertas;
     }
-         
     
-    public static void saveFile(String nomFile, ArrayList<Vehiculo> vehiculos) {
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomFile))){
-            out.writeObject(vehiculos);
-        } catch(IOException e){
-            System.out.println(e.getMessage());
-        }
-    }
-         
-    
-    public static ArrayList<Usuario> readFile(String nomfile) {
-        ArrayList<Usuario> usuarios = new ArrayList<>();
-        try(ObjectInputStream out = new ObjectInputStream(new FileInputStream(nomfile))){
-            usuarios = (ArrayList<Usuario>)out.readObject();
-        } catch(IOException e){
-            System.out.println(e.getMessage());
-        } catch(ClassNotFoundException e){
-            System.out.println(e.getMessage());
-        }
-        return usuarios;
+    public ArrayList<String> informacionUsuario(){
+        ArrayList<String> info = new ArrayList<>();
+        info.add(this.nombres);
+        info.add(this.apellidos);
+        info.add(this.organizacion);
+        info.add(this.correo);
+        info.add(this.rol);
+        return info;
     }
     
     // funciones recuperadoras
@@ -168,7 +161,8 @@ public class Usuario implements Serializable{
         try (ObjectInputStream out = new ObjectInputStream(new FileInputStream(nombreArchivo));) {
             usuarios = (ArrayList<Usuario>)out.readObject();  
         } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+            ArrayList<Usuario> users = new ArrayList<>();
+            Usuario.guardarUsuarios("usuarios.ser", users);
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -177,22 +171,6 @@ public class Usuario implements Serializable{
         return usuarios;
     } 
     
-    public static ArrayList<String> recuperarCorreos(String nomfile){
-        ArrayList<String> correos = new ArrayList<>();
-        try (Scanner sc = new Scanner(new File(nomfile))){
-            while(sc.hasNextLine()){
-                // linea = id|correo|...
-                String linea = sc.nextLine();
-                String[] tokens = linea.split("\\|");
-                String correo = tokens[1];
-                correos.add(correo);
-            }
-        }
-        catch(Exception e){
- 
-        }
-        return correos;
-    }
     //recuperar con correo
     /*
     public static Usuario recuperarUsuario(String correo, String nomfile){
@@ -224,10 +202,44 @@ public class Usuario implements Serializable{
         return matcher.matches();
     }
     
-    //valida que el correo sea unico
-    public static boolean correoExistente(String correo,String nomfile){
-        ArrayList<String> correos = recuperarCorreos(nomfile);
-        return correos.contains(correo);
+    public static ArrayList<Usuario> actualizarClave(ArrayList<Usuario> usuarios, Usuario usuario){
+        ArrayList<Usuario> usuariosA = usuarios;
+        for(Usuario u : usuariosA){
+            if(u.getCorreo().equals(usuario.getCorreo())){
+                u.setClave(usuario.getClave());
+            }
+        }
+        return usuariosA;
+    }
+    
+    public static ArrayList<Usuario> actualizarRol(ArrayList<Usuario> usuarios, Usuario usuario){
+        ArrayList<Usuario> usuariosA = usuarios;
+        for(Usuario u : usuariosA){
+            if(u.getCorreo().equals(usuario.getCorreo())){
+                u.setRol(usuario.getRol());
+            }
+        }
+        return usuariosA;
+    }
+    
+    public static boolean validarCorreo(ArrayList<Usuario> users,String mail){
+        System.out.println(users);
+        for(Usuario u: users){
+            if(u.getCorreo().equals(mail)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static String obtenerClave(String clave1){
+        String clave2 = null;
+        try {
+            clave2 = GFG.toHexString(GFG.getSHA(clave1));
+        } catch (NoSuchAlgorithmException ex) {
+            ex.printStackTrace();
+        }
+        return clave2;
     }
     
     //sobreescrituras
