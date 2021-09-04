@@ -53,8 +53,6 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        usuarios = Usuario.cargarUsuarios("usuarios.ser");
-        System.out.println(usuarios);
     }    
 
     @FXML
@@ -66,7 +64,8 @@ public class LoginController implements Initializable {
             }
             else{
                 for(Usuario p:usuarios){
-                if((p.getCorreo().equals(user.getText()))&&(p.getClave().equals(password.getText()))){
+                    System.out.println(Usuario.obtenerClave(p.getClave()));
+                if((p.getCorreo().equals(user.getText()))&&(p.getClave().equals(Usuario.obtenerClave(password.getText())))){
                     FXMLLoader fxmlloader  = App.loadFXMLLoader("ventanaVendedor");
                     App.setRoot(fxmlloader);
                     VentanaVendedorController ventanaV = fxmlloader.getController();
