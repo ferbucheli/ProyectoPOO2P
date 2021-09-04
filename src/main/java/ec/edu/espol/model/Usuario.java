@@ -46,7 +46,11 @@ public class Usuario implements Serializable{
     public Usuario(int id, String correo, String clave, String nombres, String apellidos, String organizacion, String rol){
         this.id = id;
         this.correo = correo;
-        this.clave = clave;
+        try {
+            this.clave = GFG.toHexString(GFG.getSHA(clave));
+        } catch (NoSuchAlgorithmException ex) {
+            ex.printStackTrace();
+        }
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.organizacion = organizacion;
@@ -226,6 +230,16 @@ public class Usuario implements Serializable{
             }
         }
         return true;
+    }
+    
+    public static String obtenerClave(String clave1){
+        String clave2 = null;
+        try {
+            clave2 = GFG.toHexString(GFG.getSHA(clave1));
+        } catch (NoSuchAlgorithmException ex) {
+            ex.printStackTrace();
+        }
+        return clave2;
     }
     
     //sobreescrituras
