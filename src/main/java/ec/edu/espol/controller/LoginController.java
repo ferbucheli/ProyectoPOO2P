@@ -64,14 +64,13 @@ public class LoginController implements Initializable {
             }
             else{
                 for(Usuario p:usuarios){
-                    System.out.println(Usuario.obtenerClave(p.getClave()));
                 if((p.getCorreo().equals(user.getText()))&&(p.getClave().equals(Usuario.obtenerClave(password.getText())))){
                     FXMLLoader fxmlloader  = App.loadFXMLLoader("ventanaVendedor");
                     App.setRoot(fxmlloader);
                     VentanaVendedorController ventanaV = fxmlloader.getController();
                     ventanaV.setInformacion(p);
                 }
-                else{
+                else if(!(p.getCorreo().equals(user.getText()))&&(p.getClave().equals(Usuario.obtenerClave(password.getText())))){
                     try {
                         throw new LoginException("EL usuario y la contraseña son incorrectos");
                     } catch (LoginException ex) {
