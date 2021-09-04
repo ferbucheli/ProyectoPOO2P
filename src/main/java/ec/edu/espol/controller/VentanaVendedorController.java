@@ -45,10 +45,7 @@ public class VentanaVendedorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.usuario = new Usuario(0, "hola@gmail.com", "hola", "fer", "buch", "espol", "ambos");
-        txt1.setText("Bienvenido, " + usuario.getNombres() + " " + usuario.getApellidos());
-        ArrayList<String[]> opciones = verOpciones("opciones.txt");
-        ponerBotones(opciones);    
+            
     }
     
     public ArrayList<String[]> verOpciones(String nomFile){
@@ -67,6 +64,9 @@ public class VentanaVendedorController implements Initializable {
     
     public void setInformacion(Usuario usuario){
         this.usuario = usuario;
+        txt1.setText("Bienvenido, " + this.usuario.getNombres() + " " + this.usuario.getApellidos());
+        ArrayList<String[]> opciones = verOpciones("opciones.txt");
+        ponerBotones(opciones);
     }
     
     public void ponerBotones(ArrayList<String[]> opciones){

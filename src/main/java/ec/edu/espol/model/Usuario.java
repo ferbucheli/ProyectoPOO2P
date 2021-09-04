@@ -162,7 +162,7 @@ public class Usuario implements Serializable{
             usuarios = (ArrayList<Usuario>)out.readObject();  
         } catch (FileNotFoundException ex) {
             ArrayList<Usuario> users = new ArrayList<>();
-            Usuario.guardarUsuarios("usuario.ser", users);
+            Usuario.guardarUsuarios("usuarios.ser", users);
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (ClassNotFoundException ex) {

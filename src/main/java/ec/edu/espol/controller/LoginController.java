@@ -53,7 +53,6 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        usuarios = Usuario.cargarUsuarios("usuario.ser");
     }    
 
     @FXML
@@ -106,7 +105,7 @@ public class LoginController implements Initializable {
     public void setUsuario(int id,String mail,String pass,String name,String lastname,String org,String rol){
         Usuario usuario = new Usuario(id,mail,pass,name,lastname,org,rol);
         usuarios.add(usuario);
-        Usuario.guardarUsuarios("usuario.ser", usuarios);
+        Usuario.guardarUsuarios("usuarios.ser", usuarios);
     }
     
 }
