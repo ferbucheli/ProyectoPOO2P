@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -10,25 +10,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.PresentacionVehiculosController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.PresentacionVController">
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrar por ">
-               <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
-               </HBox.margin>
-            </Text>
-            <ComboBox prefWidth="150.0">
-               <HBox.margin>
-                  <Insets top="20.0" />
-               </HBox.margin>
-            </ComboBox>
-            <HBox fx:id="Hbox" prefHeight="100.0" prefWidth="200.0">
+            <HBox fx:id="Hbox" prefHeight="100.0" prefWidth="371.0">
                <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ingrese año o precio para filtrar: ">
+                     <HBox.margin>
+                        <Insets left="20.0" top="50.0" />
+                     </HBox.margin>
+                  </Text>
                   <TextField fx:id="filterField">
                      <HBox.margin>
-                        <Insets left="25.0" top="50.0" />
+                        <Insets left="5.0" top="50.0" />
                      </HBox.margin>
                   </TextField>
                </children></HBox>
@@ -59,4 +54,29 @@
         </columns>
       </TableView>
    </center>
+   <bottom>
+      <HBox fx:id="hb" prefHeight="44.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onMouseClicked="#Volver" text="Volver">
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ingrese el valor a ofertar:">
+               <HBox.margin>
+                  <Insets left="150.0" top="10.0" />
+               </HBox.margin>
+            </Text>
+            <TextField fx:id="PrecioOF">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onMouseClicked="#Ofertar" text="Ofertar">
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children></HBox>
+   </bottom>
 </BorderPane>

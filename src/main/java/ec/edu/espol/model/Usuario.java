@@ -55,7 +55,7 @@ public class Usuario implements Serializable{
         this.apellidos = apellidos;
         this.organizacion = organizacion;
         this.rol = rol;
-        vehiculos = new ArrayList<>();
+        vehiculos = new ArrayList<Vehiculo>();
         ofertas = new ArrayList<>();
     }
     
