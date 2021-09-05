@@ -111,7 +111,7 @@ public class VentanaVendedorController implements Initializable {
             } else if(btn.getText().equals("Ver Ofertas")){
                 btn.setOnMouseClicked((MouseEvent ev) ->{
                     try{
-                        FXMLLoader fxmlloader = App.loadFXMLLoader("ventanaOfertas");
+                        FXMLLoader fxmlloader = App.loadFXMLLoader("AceptarOferta");
                         App.setRoot(fxmlloader);
                         //VentanaOfertasController voc = fxmlloader.getController();
                         //voc.setInformacion(usuarios, usuario);
@@ -122,10 +122,10 @@ public class VentanaVendedorController implements Initializable {
             }  else if(btn.getText().equals("Ofertar por un Vehiculo")){
                 btn.setOnMouseClicked((MouseEvent ev) ->{
                     try{
-                        FXMLLoader fxmlloader = App.loadFXMLLoader("PresentacionVehiculos");
+                        FXMLLoader fxmlloader = App.loadFXMLLoader("PresentacionV");
                         App.setRoot(fxmlloader);
-                        //PresentacionVehiculosController pvc = fxmlloader.getController();
-                        //pvc.setInformacion(usuarios, usuario);
+                        PresentacionVController pvc = fxmlloader.getController();
+                        pvc.setInformacion(usuario);
                     } catch(IOException ex){
                         System.out.println(ex.getMessage());
                     }
