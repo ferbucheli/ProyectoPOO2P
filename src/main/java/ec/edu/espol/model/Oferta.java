@@ -24,19 +24,25 @@ public class Oferta implements Serializable, Comparable<Oferta> {
     private Vehiculo vehiculo;
     private Usuario usuario;
     private String correo_comprador;
+    private String placa;
     private static final long serialVersionUID = 93423423423423234L;
     
     //constructor
 
-    public Oferta(int id, int id_Comprador, int id_Vehiculo, double precio_ofertado, String correo_comprador) {
+    public Oferta(int id, int id_Comprador, int id_Vehiculo, double precio_ofertado, String correo_comprador,String placa) {
         this.id = id;
         this.id_Comprador = id_Comprador;
         this.id_Vehiculo = id_Vehiculo;
         this.precio_ofertado = precio_ofertado;
         this.correo_comprador = correo_comprador;
+        this.placa=placa;
     }
     
     //getters y setters
+
+    public String getPlaca() {
+        return placa;
+    }
 
     public int getId() {
         return id;
@@ -54,8 +60,8 @@ public class Oferta implements Serializable, Comparable<Oferta> {
         return precio_ofertado;
     }
 
-    public Vehiculo getVehiculo() {
-        return vehiculo;
+    public String getVehiculo() {
+        return vehiculo.getPlaca();
     }
 
     public String getCorreo_comprador() {

@@ -191,11 +191,13 @@ public class PresentacionVController implements Initializable {
             String Correo=this.usuario.getCorreo();
             int ID=TablaCompleta.getSelectionModel().getSelectedItem().getId();
             double precioOfertado=Double.parseDouble(PrecioOF.getText());
+            String placa=TablaCompleta.getSelectionModel().getSelectedItem().getPlaca();
             
             
-            Oferta Ofert=new Oferta(IDusuario,IDusuario,ID,precioOfertado,Correo);
+            Oferta Ofert=new Oferta(IDusuario,IDusuario,ID,precioOfertado,Correo,placa);
             
             Vehiculo V =TablaCompleta.getSelectionModel().getSelectedItem();
+            
             int idus=V.getId_usuario();
             Usuario dueno = Usuario.extraerUsuario(idus, this.Usuarios);
             dueno.getOfertas().add(Ofert);
