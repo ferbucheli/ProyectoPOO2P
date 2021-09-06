@@ -10,7 +10,5 @@ module ec.edu.espol.proyecto2p {
     exports ec.edu.espol.proyecto2p;
     exports ec.edu.espol.controller;
     exports ec.edu.espol.model;
-    
-    
-    
+    requires java.mail;   
 }

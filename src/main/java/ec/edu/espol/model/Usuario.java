@@ -242,6 +242,14 @@ public class Usuario implements Serializable{
         return clave2;
     }
     
+    public static Usuario extraerUsuario(int id, ArrayList<Usuario> usuarios){
+        for(Usuario u : usuarios){
+            if(u.getId() == id)
+                return u;
+        }
+        return null;
+    }
+    
     //sobreescrituras
     @Override
     public boolean equals(Object o){
