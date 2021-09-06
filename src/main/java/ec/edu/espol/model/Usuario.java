@@ -260,4 +260,20 @@ public class Usuario implements Serializable{
         String s = "USUARIO\nNombres: " +this.nombres + "\nApellidos: " + this.apellidos+ "\nCorreo Electrónico: " + this.correo + "\nRol: " + this.rol;
         return s;
     }
+    
+    
+    public static Usuario extraerUsuario(int ID,ArrayList<Usuario> usuarios){
+        
+        for(Usuario U:usuarios){
+            if(U.getId()==ID)
+                return U;
+
+        }
+        return null;
+    }
+    
+    
+    
 }
+
+
