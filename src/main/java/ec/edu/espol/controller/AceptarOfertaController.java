@@ -128,7 +128,7 @@ public class AceptarOfertaController implements Initializable {
             }
         }
         
-        
+        Ofertas.sort(Oferta::compareTo);
         ObservableList<Vehiculo> lista=FXCollections.observableArrayList(Ofertas);
         
         // TODO
