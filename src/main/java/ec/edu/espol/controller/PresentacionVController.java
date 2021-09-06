@@ -128,8 +128,13 @@ public class PresentacionVController implements Initializable {
                                 
 				else if (String.valueOf(employee.getPrecio()).indexOf(lowerCaseFilter)!=-1)
 				     return true;
+                                else if (String.valueOf(employee.getTipo()).indexOf(lowerCaseFilter)!=-1)
+				     return true;
+                                else if (String.valueOf(employee.getRecorrido()).indexOf(lowerCaseFilter)!=-1)
+				     return true;
 				     else  
 				    	 return false; // Does not match.
+                                
 			});
 		});
 		
