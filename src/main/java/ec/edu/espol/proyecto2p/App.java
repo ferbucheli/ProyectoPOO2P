@@ -2,6 +2,9 @@ package ec.edu.espol.proyecto2p;
 
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +12,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Properties;
 
 /**
  * JavaFX App
@@ -44,7 +49,19 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
-                
+ 
+        File archivo = new File("info.properties");       
+       
+        try(OutputStream outputStream = new FileOutputStream(archivo)) {
+                Properties prop = new Properties();
+                prop.setProperty("db.usuario", "proyectopooautos@gmail.com");
+                prop.setProperty("db.password", "autos123@");
+                prop.store(outputStream, "Config");
+            } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
+        launch();     
+    }
 }
