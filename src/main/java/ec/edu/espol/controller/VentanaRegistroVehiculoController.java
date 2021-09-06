@@ -118,12 +118,12 @@ public class VentanaRegistroVehiculoController implements Initializable{
                 Util.actualizar(usuarios, "usuarios.ser");
             } else if(rButton2.isSelected()){
                 int id = Util.nextIDVehiculo(this.vehiculos);
-                Vehiculo camioneta = new Vehiculo(0, "auto", this.usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), atributos.get(9), atributos.get(10), atributos.get(11), rutaImg);
+                Vehiculo camioneta = new Vehiculo(id, "camioneta", this.usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), atributos.get(9), atributos.get(10), atributos.get(11), rutaImg);
                 Vehiculo.agregarVehiculo(usuarios, usuario, camioneta);
                 Util.actualizar(usuarios, "usuarios.ser");
             } else if(rButton3.isSelected()){
                 int id = Util.nextIDVehiculo(this.vehiculos);
-                Vehiculo moto = new Vehiculo(0, "auto", this.usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), rutaImg);
+                Vehiculo moto = new Vehiculo(id, "moto", this.usuario.getId(), atributos.get(0), atributos.get(1), atributos.get(2), Integer.parseInt(atributos.get(3)), atributos.get(4), Double.parseDouble(atributos.get(5)), atributos.get(6), atributos.get(7), Double.parseDouble(atributos.get(8)), rutaImg);
                 Vehiculo.agregarVehiculo(usuarios, usuario, moto);
                 Util.actualizar(usuarios, "usuarios.ser");
             }
