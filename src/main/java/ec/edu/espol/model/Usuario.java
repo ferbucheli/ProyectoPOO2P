@@ -82,7 +82,11 @@ public class Usuario implements Serializable{
     }
 
     public void setClave(String clave) {
-        this.clave = clave;
+        try {
+            this.clave = GFG.toHexString(GFG.getSHA(clave));
+        } catch (NoSuchAlgorithmException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public String getNombres() {
