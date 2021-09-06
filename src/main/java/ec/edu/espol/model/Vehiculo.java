@@ -13,6 +13,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -284,6 +286,13 @@ public class Vehiculo implements Serializable{
                 u.getVehiculos().add(vehiculo);
             }
         }
+    }
+    
+    public static boolean validarPlaca(String placa){
+        String regex = "^[A-Z][A-Z][A-Z]-[0-9]{3,4}";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(placa);
+        return matcher.matches();
     }
 
     @Override
