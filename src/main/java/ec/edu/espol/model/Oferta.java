@@ -16,7 +16,7 @@ import java.util.Scanner;
  *
  * @author davidperez
  */
-public class Oferta implements Serializable {
+public class Oferta implements Serializable, Comparable<Oferta> {
     private int id;
     private int id_Comprador;
     private int id_Vehiculo;
@@ -94,4 +94,10 @@ public class Oferta implements Serializable {
     public String toString() {
         return "Correo comprador: " + this.correo_comprador + "\nPrecio Ofertado: " + this.precio_ofertado;
     }
+
+    @Override
+    public int compareTo(Oferta o) {
+        return (int)this.precio_ofertado - (int)o.precio_ofertado;
+    }
+
 }

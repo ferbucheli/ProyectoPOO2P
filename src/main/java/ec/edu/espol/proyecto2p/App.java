@@ -44,17 +44,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        
-        ArrayList<Vehiculo> VS=new ArrayList();
-        ArrayList<Usuario> US=Usuario.cargarUsuarios("usuario.ser");
-        for(Usuario U:US){
-            ArrayList<Vehiculo> Vehiculoslista=U.getVehiculos();
-            for(Vehiculo V:Vehiculoslista){
-                VS.add(V);     
-            }
-        }
-        System.out.println(VS);
-        
         launch();
                 
         }

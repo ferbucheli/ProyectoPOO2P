@@ -53,6 +53,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         usuarios = Usuario.cargarUsuarios("usuarios.ser");
+        System.out.println(usuarios);
     }    
 
     @FXML
@@ -99,12 +100,6 @@ public class LoginController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-    
-    public void setUsuario(int id,String mail,String pass,String name,String lastname,String org,String rol){
-        Usuario usuario = new Usuario(id,mail,pass,name,lastname,org,rol);
-        usuarios.add(usuario);
-        Usuario.guardarUsuarios("usuarios.ser", usuarios);
     }
     
 }
