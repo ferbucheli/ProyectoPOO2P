@@ -5,12 +5,9 @@
  */
 package ec.edu.espol.controller;
 
-import ec.edu.espol.model.Oferta;
 import ec.edu.espol.model.Usuario;
-import static ec.edu.espol.model.Usuario.guardarUsuarios;
 import ec.edu.espol.model.Vehiculo;
 import ec.edu.espol.proyecto2p.App;
-import ec.edu.espol.util.Util;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -174,7 +171,7 @@ public class PresentacionVController implements Initializable {
         //Oferta(int id, int id_Comprador, int id_Vehiculo, double precio_ofertado, String correo_comprador)
         
         
-        if(PrecioOF.getText().isEmpty()){
+        if(TablaCompleta.getSelectionModel().isSelected(0)){
             Alert A1= new Alert(Alert.AlertType.ERROR,"Escriba el monto a ofertar");
             A1.show();
             
@@ -182,35 +179,12 @@ public class PresentacionVController implements Initializable {
         }
         else{
             
-            int IDusuario=this.usuario.getId();
+            int IDiusuario=this.usuario.getId();
             String Correo=this.usuario.getCorreo();
             int ID=TablaCompleta.getSelectionModel().getSelectedItem().getId();
             double precioOfertado=Double.parseDouble(PrecioOF.getText());
-            
-            
-            Oferta Ofert=new Oferta(IDusuario,IDusuario,ID,precioOfertado,Correo);
-            
-            Vehiculo V =TablaCompleta.getSelectionModel().getSelectedItem();
-            int idus=V.getId_usuario();
-            Usuario dueno=Usuario.extraerUsuario(idus, this.Usuarios);
-            dueno.getOfertas().add(Ofert);
-            this.usuario.getOfertas().add(Ofert);
-   
-            //guardarUsuarios("usuarios.ser",this.Usuarios);
-            Util.actualizar(this.Usuarios,"usuarios.ser");
-            
-            
-             try {
-            FXMLLoader fxmlloader = App.loadFXMLLoader("ventanaVendedor");
-            App.setRoot(fxmlloader);
-            VentanaVendedorController vvc = fxmlloader.getController();
-            vvc.setInformacion(usuario);
-            } catch (IOException ex) {
-            ex.printStackTrace();
-            }
-            
-            
-            
+            Alert A1= new Alert(Alert.AlertType.ERROR,Correo+" "+ID+" "+precioOfertado);
+            A1.show();
             
         }
         

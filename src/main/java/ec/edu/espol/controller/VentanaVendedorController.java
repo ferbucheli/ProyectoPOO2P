@@ -113,8 +113,8 @@ public class VentanaVendedorController implements Initializable {
                     try{
                         FXMLLoader fxmlloader = App.loadFXMLLoader("AceptarOferta");
                         App.setRoot(fxmlloader);
-                        AceptarOfertaController voc = fxmlloader.getController();
-                        voc.setInformacion(usuario);
+                        //VentanaOfertasController voc = fxmlloader.getController();
+                        //voc.setInformacion(usuarios, usuario);
                     } catch(IOException ex){
                         System.out.println(ex.getMessage());
                     }
