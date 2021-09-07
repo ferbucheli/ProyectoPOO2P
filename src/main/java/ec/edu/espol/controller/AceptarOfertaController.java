@@ -114,14 +114,14 @@ public class AceptarOfertaController implements Initializable {
         
         //ArrayList<Vehiculo> Ofertas=new ArrayList<>();
         
-
         
         
         ArrayList<Oferta> Ofertas =this.usuario.getOfertas();
         
         
         //Vehiculo.sort(Oferta::compareTo);
-
+        
+        ObservableList<Oferta> lista=FXCollections.observableArrayList(Ofertas);
         
         // TODO
         
@@ -132,8 +132,6 @@ public class AceptarOfertaController implements Initializable {
         
         
         Tview.setItems(lista);
-        
-        
     }
     
     
