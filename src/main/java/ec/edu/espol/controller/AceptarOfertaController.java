@@ -132,8 +132,6 @@ public class AceptarOfertaController implements Initializable {
         
         
         Tview.setItems(lista);
-        
-        
     }
     
     
