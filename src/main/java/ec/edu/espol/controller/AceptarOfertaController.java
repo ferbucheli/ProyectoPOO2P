@@ -34,24 +34,20 @@ public class AceptarOfertaController implements Initializable {
 
  
     @FXML
-    private TableView<Vehiculo> Tview;
+    private TableView<Oferta> Tview;
     @FXML
-    private TableColumn<Vehiculo, String> placa;
-    @FXML
-    private TableColumn<Vehiculo, String> marca;
+    private TableColumn<Oferta, String> placa;
+    
     private Usuario usuario;
     private ArrayList<Vehiculo> Vehiculos;
     private ArrayList<Usuario> Usuarios;
     @FXML
     private Button BTaceptar;
+    
     @FXML
-    private TableColumn<Vehiculo, String> modelo;
+    private TableColumn<Oferta, Double> precioOfertado;
     @FXML
-    private TableColumn<Vehiculo, String> motor;
-    @FXML
-    private TableColumn<Vehiculo, String> Combustible;
-    @FXML
-    private TableColumn<Vehiculo, Double> PrecioOfertado;
+    private TableColumn<Oferta, String> correoComprador;
 
     /**
      * Initializes the controller class.
@@ -93,7 +89,10 @@ public class AceptarOfertaController implements Initializable {
 
     @FXML
     private void AceptarOferta(MouseEvent event) {
-        Util.sendMail(this.usuario.getCorreo());
+         Util.sendMail(this.usuario.getCorreo());
+         Oferta selectedItem = Tview.getSelectionModel().getSelectedItem();
+         Tview.getItems().remove(selectedItem);
+         
         //Util.sendMail("migel_sjc2002@hotmail.com");
     }
     
@@ -113,27 +112,24 @@ public class AceptarOfertaController implements Initializable {
     @FXML
     private void MostarOfertas(MouseEvent event) {
         
-        ArrayList<Vehiculo> Ofertas=new ArrayList<>();
-        for(Vehiculo V:this.usuario.getVehiculos()){
-            for(Oferta O:this.usuario.getOfertas()){
-                if(V.getId()==O.getId_Vehiculo())
-                    Ofertas.add(V);
-            }
-        }
+        //ArrayList<Vehiculo> Ofertas=new ArrayList<>();
         
-        ObservableList<Vehiculo> lista=FXCollections.observableArrayList(Ofertas);
+
+        
+        
+        ArrayList<Oferta> Ofertas =this.usuario.getOfertas();
+        
+        
+        //Vehiculo.sort(Oferta::compareTo);
+
         
         // TODO
         
-        placa.setCellValueFactory(new PropertyValueFactory<Vehiculo, String>("placa"));
+        placa.setCellValueFactory(new PropertyValueFactory<Oferta, String>("placa"));
         
-        marca.setCellValueFactory(new PropertyValueFactory<Vehiculo, String>("marca"));
-        modelo.setCellValueFactory(new PropertyValueFactory<Vehiculo, String>("placa"));
+        precioOfertado.setCellValueFactory(new PropertyValueFactory<Oferta, Double>("precio_ofertado"));
+        correoComprador.setCellValueFactory(new PropertyValueFactory<Oferta, String>("correo_comprador"));
         
-        motor.setCellValueFactory(new PropertyValueFactory<Vehiculo, String>("marca"));
-        Combustible.setCellValueFactory(new PropertyValueFactory<Vehiculo, String>("placa"));
-        
-        PrecioOfertado.setCellValueFactory(new PropertyValueFactory<Vehiculo, Double>("precio"));
         
         Tview.setItems(lista);
         

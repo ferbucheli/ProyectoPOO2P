@@ -10,8 +10,11 @@ import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -70,8 +73,33 @@ public class Util {
         }
     }
     
+    
+    
+    
+    
+    
         public static void sendMail(String recipient){
         Properties properties=new Properties();
+        
+        String cuenta="";
+        String pass="";
+        try (InputStream inputStream = new FileInputStream("info.properties")) {
+                Properties prop = new Properties();
+                prop.load(inputStream);
+                System.out.println("\tLeemos el valor de las claves");
+                // get value by key
+                cuenta=(prop.getProperty("db.usuario"));
+                
+                pass=(prop.getProperty("db.password"));
+            } catch (FileNotFoundException ex) {            
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+             
+            
+        
+        
         
         
         properties.put("mail.smtp.auth", "true");
@@ -79,8 +107,8 @@ public class Util {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
         
-        String miCuenta="proyectopooautos@gmail.com";
-        String password="autos123@";
+        String miCuenta=cuenta;
+        String password=pass;
         
         Session session = Session.getInstance(properties,new Authenticator(){
             @Override
