@@ -14,11 +14,8 @@
       <TableView fx:id="Tview" prefHeight="281.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="placa" prefWidth="75.0" text="Placa" />
-          <TableColumn fx:id="marca" prefWidth="75.0" text="Marca" />
-            <TableColumn fx:id="modelo" prefWidth="75.0" text="Modelo" />
-            <TableColumn fx:id="motor" prefWidth="75.0" text="Motor" />
-            <TableColumn fx:id="Combustible" text="Combustible" />
-            <TableColumn fx:id="PrecioOfertado" prefWidth="95.0" text="Precio Ofertado" />
+          <TableColumn fx:id="precioOfertado" prefWidth="223.0" text="Precio Ofertado" />
+            <TableColumn fx:id="correoComprador" prefWidth="295.0" text="Correo Comprador" />
         </columns>
       </TableView>
    </center>
