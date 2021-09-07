@@ -57,13 +57,6 @@ public class AceptarOfertaController implements Initializable {
      * Initializes the controller class.
      */
     
-        
-     
-    
-    
-    
-    
-    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -128,7 +121,6 @@ public class AceptarOfertaController implements Initializable {
             }
         }
         
-        Ofertas.sort(Oferta::compareTo);
         ObservableList<Vehiculo> lista=FXCollections.observableArrayList(Ofertas);
         
         // TODO

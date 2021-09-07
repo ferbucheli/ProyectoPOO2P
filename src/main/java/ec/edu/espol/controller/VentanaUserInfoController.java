@@ -133,9 +133,9 @@ public class VentanaUserInfoController implements Initializable {
     public void contrasenaCasillero(){
         HBox hbox1 = new HBox();
         HBox hbox2 = new HBox();
-        Text txt1 = new Text("Nueva contraseña:");
+        Text txt1 = new Text("Contraseña Actual:");
         TextField txtf1 = new TextField();
-        Text txt2 = new Text("Confirmar nueva nontraseña:");
+        Text txt2 = new Text("Nueva contraseña:");
         TextField txtf2 = new TextField();
         hbox1.getChildren().addAll(txt1,txtf1);
         hbox2.getChildren().addAll(txt2,txtf2);
@@ -144,13 +144,13 @@ public class VentanaUserInfoController implements Initializable {
         Button btn = new Button("Cambiar");
         btn.setOnMouseClicked((MouseEvent eve) ->{
             try {
-                String contrasena = txtf1.getText();
+                String contrasenaA = txtf1.getText();
                 String contrasenaC = txtf2.getText();
-                if(contrasena.equals("") && contrasenaC.equals(""))
+                if(contrasenaA.equals("") && contrasenaC.equals(""))
                     throw new CasilleroException("Debe de llenar los 2 casilleros!");
-                else if(!contrasena.equals(contrasenaC))
-                    throw new ContrasenaException("Las contraseñas deben coincidir!");
-                usuario.setClave(contrasena);
+                else if(!contrasenaA.equals(usuario.getClave()))
+                    throw new ContrasenaException("Las contraseña actual no es la correcta!");
+                usuario.setClave(contrasenaC);
                 this.usuarios = Usuario.actualizarClave(usuarios, usuario);
                 Util.actualizar(usuarios, "usuarios.ser");
                 contrasenaPane.getChildren().clear();
