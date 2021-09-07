@@ -5,6 +5,7 @@
  */
 package ec.edu.espol.model;
 
+import ec.edu.espol.exceptions.OfertaException;
 import ec.edu.espol.util.GFG;
 import ec.edu.espol.util.Util;
 import java.io.File;
@@ -252,6 +253,28 @@ public class Usuario implements Serializable{
                 return u;
         }
         return null;
+    }
+    
+    public ArrayList<String> obtenerPlacas(){
+        ArrayList<String> placas = new ArrayList<>();
+        ArrayList<Oferta> ofertas = this.getOfertas();
+        for(Oferta o : ofertas){
+            if(!placas.contains(o.getPlaca()))
+                placas.add(o.getPlaca());
+        }
+        return placas;
+    }
+    
+    public ArrayList<Oferta> getOfertas(String placa) throws OfertaException{
+        ArrayList<Oferta> ofertas = new ArrayList<>();
+        for(Oferta o : this.getOfertas()){
+            if(o.getPlaca().equals(placa))
+                ofertas.add(o);
+        }
+        if(!ofertas.isEmpty())
+            return ofertas;
+        else
+            throw new OfertaException("No hay ofertas para este vehiculo!");
     }
     
     //sobreescrituras
