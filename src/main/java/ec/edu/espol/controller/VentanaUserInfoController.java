@@ -133,9 +133,9 @@ public class VentanaUserInfoController implements Initializable {
     public void contrasenaCasillero(){
         HBox hbox1 = new HBox();
         HBox hbox2 = new HBox();
-        Text txt1 = new Text("Nueva contraseña:");
+        Text txt1 = new Text("Contraseña Actual:");
         TextField txtf1 = new TextField();
-        Text txt2 = new Text("Confirmar nueva nontraseña:");
+        Text txt2 = new Text("Nueva contraseña:");
         TextField txtf2 = new TextField();
         hbox1.getChildren().addAll(txt1,txtf1);
         hbox2.getChildren().addAll(txt2,txtf2);
@@ -144,17 +144,19 @@ public class VentanaUserInfoController implements Initializable {
         Button btn = new Button("Cambiar");
         btn.setOnMouseClicked((MouseEvent eve) ->{
             try {
-                String contrasena = txtf1.getText();
+                String contrasenaA = txtf1.getText();
                 String contrasenaC = txtf2.getText();
-                if(contrasena.equals("") && contrasenaC.equals(""))
+                if(contrasenaA.equals("") || contrasenaC.equals(""))
                     throw new CasilleroException("Debe de llenar los 2 casilleros!");
-                else if(!contrasena.equals(contrasenaC))
-                    throw new ContrasenaException("Las contraseñas deben coincidir!");
-                usuario.setClave(contrasena);
-                this.usuarios = Usuario.actualizarClave(usuarios, usuario);
+                else if(!Usuario.obtenerClave(contrasenaA).equals(usuario.getClave()))
+                    throw new ContrasenaException("Las contraseña actual no es la correcta!");
+                usuario.setClave(contrasenaC);
+                this.usuarios = Usuario.actualizarClave(usuarios, usuario, contrasenaC);
                 Util.actualizar(usuarios, "usuarios.ser");
                 contrasenaPane.getChildren().clear();
                 contrasenaOpened = false;
+                Alert a = new Alert(AlertType.INFORMATION, "Se ha cambiado de clave correctamente");
+                a.show();
             } catch (CasilleroException ex) {
                 Alert a = new Alert(AlertType.ERROR, ex.getMessage());
                 a.show();
@@ -185,16 +187,22 @@ public class VentanaUserInfoController implements Initializable {
                 usuario.setRol(r1.getText().toLowerCase());
                 this.usuarios = Usuario.actualizarRol(usuarios, usuario);
                 Util.actualizar(usuarios, "usuarios.ser");
+                Alert a = new Alert(AlertType.INFORMATION, "Se ha cambiado el rol correctamente");
+                a.show();
             }    
             else if(r2.isSelected()){
                 usuario.setRol(r2.getText().toLowerCase());
                 this.usuarios = Usuario.actualizarRol(usuarios, usuario);
                 Util.actualizar(usuarios, "usuarios.ser");
+                Alert a = new Alert(AlertType.INFORMATION, "Se ha cambiado el rol correctamente");
+                a.show();
             }
             else if(r3.isSelected()){
                 usuario.setRol(r3.getText().toLowerCase());
                 this.usuarios = Usuario.actualizarRol(usuarios, usuario);
                 Util.actualizar(usuarios, "usuarios.ser");
+                Alert a = new Alert(AlertType.INFORMATION, "Se ha cambiado el rol correctamente");
+                a.show();
             }
             limpiar();
             ponerDatos();

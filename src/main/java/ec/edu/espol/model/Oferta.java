@@ -92,6 +92,17 @@ public class Oferta implements Serializable, Comparable<Oferta> {
         this.correo_comprador = correo_comprador;
     }
     
+    public static ArrayList<Usuario> borrarOfertas(ArrayList<Usuario> usuarios, String placa){
+        ArrayList<Usuario> usuariosa = usuarios;
+        for(Usuario u : usuariosa){
+            for(int i = 0; i < u.getOfertas().size(); i++){
+                if(u.getOfertas().get(i).getPlaca().equals(placa))
+                    u.getOfertas().remove(u.getOfertas().get(i));
+            }
+        }
+        return usuariosa;
+    }
+    
     //funciones de file
     
     //sobreescrituras

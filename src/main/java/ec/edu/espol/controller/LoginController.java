@@ -6,11 +6,14 @@
 package ec.edu.espol.controller;
 
 import ec.edu.espol.exceptions.CasilleroException;
+import ec.edu.espol.exceptions.ContrasenaException;
 import ec.edu.espol.exceptions.LoginException;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.proyecto2p.App;
+import ec.edu.espol.util.GFG;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -58,37 +61,39 @@ public class LoginController implements Initializable {
 
     @FXML
     private void login(MouseEvent event) {
-        
+        int contador = 0;
         try {
             if((password.getText().equals(""))||(user.getText().equals(""))){
                 throw new CasilleroException("Debe llenar todos los campos");
             }
             else{
-                for(Usuario p:usuarios){
-                if((p.getCorreo().equals(user.getText()))&&(p.getClave().equals(Usuario.obtenerClave(password.getText())))){
-                    FXMLLoader fxmlloader  = App.loadFXMLLoader("ventanaVendedor");
-                    App.setRoot(fxmlloader);
-                    VentanaVendedorController ventanaV = fxmlloader.getController();
-                    ventanaV.setInformacion(p);
-                }
-                else if(!(p.getCorreo().equals(user.getText()))&&(p.getClave().equals(Usuario.obtenerClave(password.getText())))){
-                    try {
-                        throw new LoginException("EL usuario y la contraseña son incorrectos");
-                    } catch (LoginException ex) {
-                        Alert a = new Alert(AlertType.ERROR,ex.getMessage());
-                        a.show();
-                        }
+                for(Usuario p : usuarios){
+                    if( (p.getCorreo().equals(user.getText())) ){
+                        contador++;
+                        if(p.getClave().equals(Usuario.obtenerClave(password.getText()))){
+                            FXMLLoader fxmlloader  = App.loadFXMLLoader("ventanaVendedor");
+                            App.setRoot(fxmlloader);
+                            VentanaVendedorController ventanaV = fxmlloader.getController();
+                            ventanaV.setInformacion(p);
+                            throw new LoginException("Exitoso");
+                        } else
+                            throw new ContrasenaException("Contrasena Incorrecta");
                     }
                 }
             }    
-            
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (CasilleroException ex) {
             Alert a = new Alert(AlertType.ERROR,ex.getMessage());
             a.show();
+        } catch (LoginException ex) {
+            Alert a = new Alert(AlertType.CONFIRMATION, "Inicio de Sesion Exitoso");
+            a.show();
+        } catch (ContrasenaException ex) {
+            Alert a = new Alert(AlertType.ERROR, ex.getMessage());
+            a.show();
         }
-        
+
     }
 
     @FXML

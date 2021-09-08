@@ -7,6 +7,7 @@ package ec.edu.espol.controller;
 
 import ec.edu.espol.exceptions.CasilleroException;
 import ec.edu.espol.exceptions.ImagenException;
+import ec.edu.espol.exceptions.PlacaException;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
 import ec.edu.espol.proyecto2p.App;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -128,7 +130,7 @@ public class VentanaRegistroVehiculoController implements Initializable{
                 Util.actualizar(usuarios, "usuarios.ser");
             }
             gridPane.getChildren().clear();
-            imv1.getImage().cancel();
+            imv1.setImage(null);
         } catch (CasilleroException ex) {
             Alert a = new Alert(AlertType.ERROR,"Usted debe de llenar todos los campos de informacion para el vehiculo");
             a.show();
@@ -137,6 +139,9 @@ public class VentanaRegistroVehiculoController implements Initializable{
             a.show();
         } catch(NumberFormatException nfe){
             Alert a = new Alert(AlertType.ERROR,"Ingresar datos numéricos correctamente");
+            a.show();
+        } catch (PlacaException e) {
+            Alert a = new Alert(AlertType.ERROR,e.getMessage());
             a.show();
         }
     }
@@ -206,8 +211,8 @@ public class VentanaRegistroVehiculoController implements Initializable{
         try {
             Files.copy(sourceFile.toPath(), destination.toPath());
         } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+
+        } 
         return ruta;
     }
     

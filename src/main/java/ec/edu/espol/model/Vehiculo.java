@@ -5,6 +5,7 @@
  */
 package ec.edu.espol.model;
 
+import ec.edu.espol.exceptions.PlacaException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -44,10 +45,14 @@ public class Vehiculo implements Serializable{
     
     // Constructor de Autos
  
-    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String rutaImg){
+    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String rutaImg) throws PlacaException{
         this.id = id;
         this.tipo = tipo;
         this.id_usuario = id_usuario;
+        if(validarPlaca(placa))
+            this.placa = placa;
+        else
+            throw new PlacaException("La placa esta en un formato no valido!");
         this.placa = placa;
         this.marca = marca;
         this.motor = motor;
@@ -65,11 +70,14 @@ public class Vehiculo implements Serializable{
     
     // Constructor de Camionetas
     
-    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String traccion, String rutaImg){
+    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String traccion, String rutaImg) throws PlacaException{
         this.id = id;
         this.tipo = tipo;
         this.id_usuario = id_usuario;
-        this.placa = placa;
+        if(validarPlaca(placa))
+            this.placa = placa;
+        else
+            throw new PlacaException("La placa esta en un formato no valido!");
         this.marca = marca;
         this.motor = motor;
         this.anio = anio;
@@ -87,11 +95,14 @@ public class Vehiculo implements Serializable{
     
     // Constructor de motos
     
-    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String rutaImg){
+    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String rutaImg) throws PlacaException{
         this.id = id;
         this.tipo = tipo;
         this.id_usuario = id_usuario;
-        this.placa = placa;
+        if(validarPlaca(placa))
+            this.placa = placa;
+        else
+            throw new PlacaException("La placa esta en un formato no valido!");
         this.marca = marca;
         this.motor = motor;
         this.anio = anio;
@@ -102,6 +113,10 @@ public class Vehiculo implements Serializable{
         this.precio = precio;
         this.rutaImg = rutaImg;
         this.ofertas = new ArrayList<>();
+    }
+
+    public String getRutaImg() {
+        return rutaImg;
     }
 
     public int getId() {
@@ -293,6 +308,32 @@ public class Vehiculo implements Serializable{
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(placa);
         return matcher.matches();
+    }
+    
+    
+    public static ArrayList<Usuario> borrarVehiculo(ArrayList<Usuario> usuarios, String placa){
+        ArrayList<Usuario> usuariosa = usuarios;
+        for(Usuario u : usuariosa){
+            for(int i = 0; i < u.getVehiculos().size(); i++){
+                if(u.getVehiculos().get(i).getPlaca().equals(placa))
+                    u.getVehiculos().remove(u.getVehiculos().get(i));
+            }
+        }
+        return usuariosa;
+    }
+    
+    public void borrarOferta(Oferta o){
+        this.ofertas.remove(o);
+    }
+    
+    public static Vehiculo extraerVehiculo(ArrayList<Usuario> usuarios, String placa){
+        for(Usuario u : usuarios){
+            for(Vehiculo v : u.getVehiculos()){
+                if(v.placa.equals(placa))
+                    return v;
+            }
+        }
+        return null;
     }
 
     @Override

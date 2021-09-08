@@ -39,6 +39,8 @@ public class VentanaVendedorController implements Initializable {
     private Usuario usuario;
     @FXML
     private Button btnUserInfo;
+    @FXML
+    private Button btnCerrarSesion;
     
     /**
      * Initializes the controller class.
@@ -73,6 +75,8 @@ public class VentanaVendedorController implements Initializable {
         if(usuario.getRol().equals("vendedor")){
             for(int i = 1; i < opciones.get(0).length; i++){
                 Button btn1 = new Button(opciones.get(0)[i]);
+                String bstyle= String.format("-fx-background-color: %s;", "white");
+                btn1.setStyle(bstyle);
                 vbox.getChildren().add(btn1);
                 evaluarBotones();
             }
@@ -80,6 +84,8 @@ public class VentanaVendedorController implements Initializable {
         } else if(usuario.getRol().equals("comprador")){
             for(int i = 1; i < opciones.get(1).length; i++){
                 Button btn1 = new Button(opciones.get(1)[i]);
+                String bstyle= String.format("-fx-background-color: %s;", "white");
+                btn1.setStyle(bstyle);
                 vbox.getChildren().add(btn1);
                 evaluarBotones();
             }
@@ -87,6 +93,8 @@ public class VentanaVendedorController implements Initializable {
         } else if(usuario.getRol().equals("ambos")){
             for(int i = 1; i < opciones.get(2).length; i++){
                 Button btn1 = new Button(opciones.get(2)[i]);
+                String bstyle= String.format("-fx-background-color: %s;", "white");
+                btn1.setStyle(bstyle);
                 vbox.getChildren().add(btn1);
                 evaluarBotones();
             }
@@ -141,6 +149,16 @@ public class VentanaVendedorController implements Initializable {
             App.setRoot(fxmlloader);
             VentanaUserInfoController vui = fxmlloader.getController();
             vui.setInformacion(usuario);
+        } catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void cerrarSesion(MouseEvent event) {
+        try{
+            FXMLLoader fxmlloader = App.loadFXMLLoader("login");
+            App.setRoot(fxmlloader);
         } catch(IOException ex){
             ex.printStackTrace();
         }
