@@ -23,6 +23,8 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -125,8 +127,8 @@ public class Util {
         } catch (MessagingException ex) {
             ex.printStackTrace();
         }
-        System.out.println("Mensaje enviado con exito");
-        
+        Alert a = new Alert(AlertType.CONFIRMATION, "Oferta Aceptada con Exito!");
+        a.show();
     
     }
     
