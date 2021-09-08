@@ -4,20 +4,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.VentanaUserInfoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: A1A0CD; -fx-border-width: 5; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.VentanaUserInfoController">
    <children>
-      <Button fx:id="btnContrasena" layoutX="395.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#cambiarContrasena" text="Cambiar Contraseña" />
+      <Pane layoutX="104.0" layoutY="10.0" prefHeight="42.0" prefWidth="392.0" style="-fx-background-color: white; -fx-background-radius: 2em; -fx-border-color: black; -fx-border-radius: 2em;" />
+      <Button fx:id="btnContrasena" layoutX="395.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#cambiarContrasena" style="-fx-background-color: white; -fx-background-radius: 2em;" text="Cambiar Contraseña">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <Text layoutX="127.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informacion de Usuario">
          <font>
             <Font name="Arial Bold" size="31.0" />
          </font>
       </Text>
-      <Button fx:id="btnRol" layoutX="408.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#cambiarRol" text="Cambiar de Rol" />
+      <Button fx:id="btnRol" layoutX="408.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#cambiarRol" style="-fx-background-color: white; -fx-background-radius: 2em;" text="Cambiar de Rol">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <VBox fx:id="contrasenaPane" layoutX="332.0" layoutY="143.0" onMouseClicked="#cb" prefHeight="106.0" prefWidth="257.0" />
       <GridPane fx:id="gridPaneInfo" layoutX="27.0" layoutY="102.0">
         <columnConstraints>
@@ -32,14 +40,32 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombres:" GridPane.halignment="LEFT" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos:" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Organizacion:" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Correo:" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rol Actual:" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombres:" GridPane.halignment="LEFT">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos:" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Organizacion:" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Correo:" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rol Actual:" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Text>
          </children>
       </GridPane>
       <VBox fx:id="rolPane" layoutX="295.0" layoutY="284.0" onMouseClicked="#cb" prefHeight="106.0" prefWidth="306.0" />
-      <Button fx:id="btnRegresar" layoutX="27.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#regresar" text="&lt;- Regresar" />
+      <Button fx:id="btnRegresar" layoutX="27.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#regresar" style="-fx-background-color: white; -fx-background-radius: 2em;" text="&lt;- Regresar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
    </children>
 </AnchorPane>

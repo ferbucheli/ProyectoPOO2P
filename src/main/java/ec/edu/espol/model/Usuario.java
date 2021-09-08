@@ -207,11 +207,11 @@ public class Usuario implements Serializable{
         return matcher.matches();
     }
     
-    public static ArrayList<Usuario> actualizarClave(ArrayList<Usuario> usuarios, Usuario usuario){
+    public static ArrayList<Usuario> actualizarClave(ArrayList<Usuario> usuarios, Usuario usuario, String clave){
         ArrayList<Usuario> usuariosA = usuarios;
         for(Usuario u : usuariosA){
             if(u.getCorreo().equals(usuario.getCorreo())){
-                u.setClave(usuario.getClave());
+                u.setClave(clave);
             }
         }
         return usuariosA;
@@ -289,6 +289,7 @@ public class Usuario implements Serializable{
         Usuario other = (Usuario) o;
         return (this.id == other.id);
     }
+   
     
     @Override
     public String toString(){
