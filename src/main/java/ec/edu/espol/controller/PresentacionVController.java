@@ -22,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -165,33 +166,37 @@ public class PresentacionVController implements Initializable {
         else{
             int IDusuario=this.usuario.getId();
             String Correo=this.usuario.getCorreo();
-            int ID=TablaCompleta.getSelectionModel().getSelectedItem().getId();
-            double precioOfertado=Double.parseDouble(PrecioOF.getText());
-            String placa=TablaCompleta.getSelectionModel().getSelectedItem().getPlaca();
-            
-            
-            Oferta Ofert=new Oferta(IDusuario,IDusuario,ID,precioOfertado,Correo,placa);
-            
-            Vehiculo V =TablaCompleta.getSelectionModel().getSelectedItem();
-            
-            int idus=V.getId_usuario();
-            Usuario dueno = Usuario.extraerUsuario(idus, this.Usuarios);
-            dueno.getOfertas().add(Ofert);
-   
-            //guardarUsuarios("usuarios.ser",this.Usuarios);
-            Util.actualizar(this.Usuarios,"usuarios.ser");
-            
-            
-             try {
-            FXMLLoader fxmlloader = App.loadFXMLLoader("ventanaVendedor");
-            App.setRoot(fxmlloader);
-            VentanaVendedorController vvc = fxmlloader.getController();
-            vvc.setInformacion(usuario);
-            } catch (IOException ex) {
-            ex.printStackTrace();
+            if(TablaCompleta.getSelectionModel().getSelectedItem() == null){
+                Alert a = new Alert(AlertType.ERROR, "Debe seleccionar un vehiculo");
+                a.show();
+            } else{
+                int ID = TablaCompleta.getSelectionModel().getSelectedItem().getId();
+                double precioOfertado=Double.parseDouble(PrecioOF.getText());
+                String placa=TablaCompleta.getSelectionModel().getSelectedItem().getPlaca();
+
+
+                Oferta Ofert=new Oferta(IDusuario,IDusuario,ID,precioOfertado,Correo,placa);
+
+                Vehiculo V =TablaCompleta.getSelectionModel().getSelectedItem();
+
+                int idus=V.getId_usuario();
+                Usuario dueno = Usuario.extraerUsuario(idus, this.Usuarios);
+                dueno.getOfertas().add(Ofert);
+
+                //guardarUsuarios("usuarios.ser",this.Usuarios);
+                Util.actualizar(this.Usuarios,"usuarios.ser");
+
+
+                 try {
+                FXMLLoader fxmlloader = App.loadFXMLLoader("ventanaVendedor");
+                App.setRoot(fxmlloader);
+                VentanaVendedorController vvc = fxmlloader.getController();
+                vvc.setInformacion(usuario);
+                } catch (IOException ex) {
+                ex.printStackTrace();
+                }
+
             }
-            
-            
             
             
         }

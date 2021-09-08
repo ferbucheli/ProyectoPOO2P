@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -210,8 +211,8 @@ public class VentanaRegistroVehiculoController implements Initializable{
         try {
             Files.copy(sourceFile.toPath(), destination.toPath());
         } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+
+        } 
         return ruta;
     }
     
