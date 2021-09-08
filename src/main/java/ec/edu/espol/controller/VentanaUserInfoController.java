@@ -146,15 +146,17 @@ public class VentanaUserInfoController implements Initializable {
             try {
                 String contrasenaA = txtf1.getText();
                 String contrasenaC = txtf2.getText();
-                if(contrasenaA.equals("") && contrasenaC.equals(""))
+                if(contrasenaA.equals("") || contrasenaC.equals(""))
                     throw new CasilleroException("Debe de llenar los 2 casilleros!");
-                else if(!contrasenaA.equals(usuario.getClave()))
+                else if(!Usuario.obtenerClave(contrasenaA).equals(usuario.getClave()))
                     throw new ContrasenaException("Las contraseña actual no es la correcta!");
                 usuario.setClave(contrasenaC);
-                this.usuarios = Usuario.actualizarClave(usuarios, usuario);
+                this.usuarios = Usuario.actualizarClave(usuarios, usuario, contrasenaC);
                 Util.actualizar(usuarios, "usuarios.ser");
                 contrasenaPane.getChildren().clear();
                 contrasenaOpened = false;
+                Alert a = new Alert(AlertType.INFORMATION, "Se ha cambiado de clave correctamente");
+                a.show();
             } catch (CasilleroException ex) {
                 Alert a = new Alert(AlertType.ERROR, ex.getMessage());
                 a.show();
@@ -185,16 +187,22 @@ public class VentanaUserInfoController implements Initializable {
                 usuario.setRol(r1.getText().toLowerCase());
                 this.usuarios = Usuario.actualizarRol(usuarios, usuario);
                 Util.actualizar(usuarios, "usuarios.ser");
+                Alert a = new Alert(AlertType.INFORMATION, "Se ha cambiado el rol correctamente");
+                a.show();
             }    
             else if(r2.isSelected()){
                 usuario.setRol(r2.getText().toLowerCase());
                 this.usuarios = Usuario.actualizarRol(usuarios, usuario);
                 Util.actualizar(usuarios, "usuarios.ser");
+                Alert a = new Alert(AlertType.INFORMATION, "Se ha cambiado el rol correctamente");
+                a.show();
             }
             else if(r3.isSelected()){
                 usuario.setRol(r3.getText().toLowerCase());
                 this.usuarios = Usuario.actualizarRol(usuarios, usuario);
                 Util.actualizar(usuarios, "usuarios.ser");
+                Alert a = new Alert(AlertType.INFORMATION, "Se ha cambiado el rol correctamente");
+                a.show();
             }
             limpiar();
             ponerDatos();

@@ -13,6 +13,9 @@ import ec.edu.espol.proyecto2p.App;
 import ec.edu.espol.util.Util;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -63,31 +66,22 @@ public class AceptarOfertaController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            
-        Vehiculos= new ArrayList<>();
-        
-            this.Usuarios=Usuario.cargarUsuarios("usuarios.ser");
-            for(Usuario U:this.Usuarios){
-            
-                if(U.getVehiculos().size()>0){
- 
-                    ArrayList<Vehiculo> Vehiculoslista=U.getVehiculos();
-                    for(Vehiculo V:Vehiculoslista){
-                        Vehiculos.add(V);            
-                    }
-                }
-                else{
-                
-                }
-           
-        }
-        
-        
+
     }    
     
     
     
     public void setInformacion(Usuario usuario){
+        Vehiculos= new ArrayList<>();
+        this.Usuarios = Usuario.cargarUsuarios("usuarios.ser");
+        for(Usuario u : this.Usuarios){
+            if(u.getVehiculos().size()>0){
+                ArrayList<Vehiculo> Vehiculoslista = u.getVehiculos();
+                for(Vehiculo V:Vehiculoslista){
+                    Vehiculos.add(V);            
+                }
+            }
+        }
         this.usuario = usuario;
         ArrayList<String> placas = usuario.obtenerPlacas();
         cbox.setItems(FXCollections.observableArrayList(placas));
@@ -98,10 +92,16 @@ public class AceptarOfertaController implements Initializable {
 
     @FXML
     private void AceptarOferta(MouseEvent event) {
-         Util.sendMail(this.usuario.getCorreo());
-         Oferta selectedItem = Tview.getSelectionModel().getSelectedItem();
-         Tview.getItems().remove(selectedItem);
-         
+        Oferta oferta = Tview.getSelectionModel().getSelectedItem();
+        Util.sendMail(oferta.getCorreo_comprador());
+        Vehiculo v = Vehiculo.extraerVehiculo(Usuarios, oferta.getPlaca());
+        deleteFile(v);
+        Usuarios = Vehiculo.borrarVehiculo(Usuarios, oferta.getPlaca());
+        Usuarios = Oferta.borrarOfertas(Usuarios, oferta.getPlaca());
+        Util.actualizar(Usuarios, "usuarios.ser");
+        Usuario u = Usuario.extraerUsuario(this.usuario.getId(), Usuarios);
+        Tview.getItems().clear();
+        setInformacion(u);
     }
     
     
@@ -141,6 +141,15 @@ public class AceptarOfertaController implements Initializable {
                 Alert a = new Alert(AlertType.WARNING, ex.getMessage());
                 a.show();
             }
+        }
+    }
+    
+    public void deleteFile(Vehiculo v){
+        try {
+            Path imagesPath = Paths.get("img/" + v.getRutaImg());
+            Files.delete(imagesPath);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 

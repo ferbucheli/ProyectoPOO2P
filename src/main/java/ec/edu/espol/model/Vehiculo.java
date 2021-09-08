@@ -115,6 +115,10 @@ public class Vehiculo implements Serializable{
         this.ofertas = new ArrayList<>();
     }
 
+    public String getRutaImg() {
+        return rutaImg;
+    }
+
     public int getId() {
         return id;
     }
@@ -304,6 +308,32 @@ public class Vehiculo implements Serializable{
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(placa);
         return matcher.matches();
+    }
+    
+    
+    public static ArrayList<Usuario> borrarVehiculo(ArrayList<Usuario> usuarios, String placa){
+        ArrayList<Usuario> usuariosa = usuarios;
+        for(Usuario u : usuariosa){
+            for(int i = 0; i < u.getVehiculos().size(); i++){
+                if(u.getVehiculos().get(i).getPlaca().equals(placa))
+                    u.getVehiculos().remove(u.getVehiculos().get(i));
+            }
+        }
+        return usuariosa;
+    }
+    
+    public void borrarOferta(Oferta o){
+        this.ofertas.remove(o);
+    }
+    
+    public static Vehiculo extraerVehiculo(ArrayList<Usuario> usuarios, String placa){
+        for(Usuario u : usuarios){
+            for(Vehiculo v : u.getVehiculos()){
+                if(v.placa.equals(placa))
+                    return v;
+            }
+        }
+        return null;
     }
 
     @Override
