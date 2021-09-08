@@ -78,28 +78,20 @@ public class PresentacionVController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        Vehiculos= new ArrayList<>();
-        
-        this.Usuarios=Usuario.cargarUsuarios("usuarios.ser");
-        for(Usuario U:this.Usuarios){
-            
-                if(U.getVehiculos().size()==0){
+        Vehiculos = new ArrayList<>();
+    }    
+    
+    public void setInformacion(Usuario usuario){
+        this.usuario = usuario;
+        this.Usuarios = Usuario.cargarUsuarios("usuarios.ser");
+        for(Usuario U : this.Usuarios){
+            if(!U.getCorreo().equals(this.usuario.getCorreo())){
+                for(Vehiculo v: U.getVehiculos()){
+                    Vehiculos.add(v);            
                 }
-                else{
-                    ArrayList<Vehiculo> Vehiculoslista=U.getVehiculos();
-                    for(Vehiculo V:Vehiculoslista){
-                        Vehiculos.add(V);            
-                    }
-                }
-            
-           
+            }
         }
-        
-        ObservableList<Vehiculo> lista=FXCollections.observableArrayList(Vehiculos);
-        
-        
-        
+       ObservableList<Vehiculo> lista=FXCollections.observableArrayList(Vehiculos);
         Tipo.setCellValueFactory(new PropertyValueFactory<Vehiculo, String>("tipo"));
         Marca.setCellValueFactory(new PropertyValueFactory<Vehiculo, String>("marca"));
         Anio.setCellValueFactory(new PropertyValueFactory<Vehiculo, Integer>("anio"));
@@ -110,54 +102,41 @@ public class PresentacionVController implements Initializable {
         
         FilteredList<Vehiculo> filteredData = new FilteredList<>(lista, b -> true);
 		
-		// 2. Set the filter Predicate whenever the filter changes.
-		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
-			filteredData.setPredicate(employee -> {
-				// If filter text is empty, display all persons.
-								
-				if (newValue == null || newValue.isEmpty()) {
-					return true;
-				}
-				
-				// Compare first name and last name of every person with filter text.
-				String lowerCaseFilter = newValue.toLowerCase();
-				
-				if (String.valueOf(employee.getAnio()).indexOf(lowerCaseFilter)!=-1) {
-					return true; // Filter matches first name.
-				} 
-                                
-				else if (String.valueOf(employee.getPrecio()).indexOf(lowerCaseFilter)!=-1)
-				     return true;
-                                else if (String.valueOf(employee.getTipo()).indexOf(lowerCaseFilter)!=-1)
-				     return true;
-                                else if (String.valueOf(employee.getRecorrido()).indexOf(lowerCaseFilter)!=-1)
-				     return true;
-				     else  
-				    	 return false; // Does not match.
-                                
-			});
-		});
+	// 2. Set the filter Predicate whenever the filter changes.
+	filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(employee -> {
+                // If filter text is empty, display all persons.
+
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    // Compare first name and last name of every person with filter text.
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    if (String.valueOf(employee.getAnio()).indexOf(lowerCaseFilter)!=-1) {
+                        return true; // Filter matches first name.
+                    } 
+
+                    else if (String.valueOf(employee.getPrecio()).indexOf(lowerCaseFilter)!=-1)
+                        return true;
+                    else if (String.valueOf(employee.getTipo()).indexOf(lowerCaseFilter)!=-1)
+                        return true;
+                    else if (String.valueOf(employee.getRecorrido()).indexOf(lowerCaseFilter)!=-1)
+                        return true;
+                    else  
+                        return false; // Does not match.
+            });
+	});
 		
-		// 3. Wrap the FilteredList in a SortedList. 
-		SortedList<Vehiculo> sortedData = new SortedList<>(filteredData);
+        // 3. Wrap the FilteredList in a SortedList. 
+	SortedList<Vehiculo> sortedData = new SortedList<>(filteredData);
 		
-		// 4. Bind the SortedList comparator to the TableView comparator.
-		// 	  Otherwise, sorting the TableView would have no effect.
-		sortedData.comparatorProperty().bind(TablaCompleta.comparatorProperty());
+	// 4. Bind the SortedList comparator to the TableView comparator.
+	// 	  Otherwise, sorting the TableView would have no effect.
+	sortedData.comparatorProperty().bind(TablaCompleta.comparatorProperty());
 		
-		// 5. Add sorted (and filtered) data to the table.
-        
-        
-        
-        
-        
+	// 5. Add sorted (and filtered) data to the table.
         TablaCompleta.setItems(sortedData);
-        
-        
-    }    
-    
-    public void setInformacion(Usuario usuario){
-        this.usuario = usuario;
     }
     
     
@@ -182,11 +161,8 @@ public class PresentacionVController implements Initializable {
         if(PrecioOF.getText().isEmpty()){
             Alert A1= new Alert(Alert.AlertType.ERROR,"Escriba el monto a ofertar");
             A1.show();
-            
-        
         }
         else{
-            
             int IDusuario=this.usuario.getId();
             String Correo=this.usuario.getCorreo();
             int ID=TablaCompleta.getSelectionModel().getSelectedItem().getId();
@@ -201,7 +177,6 @@ public class PresentacionVController implements Initializable {
             int idus=V.getId_usuario();
             Usuario dueno = Usuario.extraerUsuario(idus, this.Usuarios);
             dueno.getOfertas().add(Ofert);
-            this.usuario.getOfertas().add(Ofert);
    
             //guardarUsuarios("usuarios.ser",this.Usuarios);
             Util.actualizar(this.Usuarios,"usuarios.ser");

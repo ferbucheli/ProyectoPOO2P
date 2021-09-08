@@ -5,6 +5,7 @@
  */
 package ec.edu.espol.model;
 
+import ec.edu.espol.exceptions.PlacaException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -44,10 +45,14 @@ public class Vehiculo implements Serializable{
     
     // Constructor de Autos
  
-    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String rutaImg){
+    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String rutaImg) throws PlacaException{
         this.id = id;
         this.tipo = tipo;
         this.id_usuario = id_usuario;
+        if(validarPlaca(placa))
+            this.placa = placa;
+        else
+            throw new PlacaException("La placa esta en un formato no valido!");
         this.placa = placa;
         this.marca = marca;
         this.motor = motor;
@@ -65,11 +70,14 @@ public class Vehiculo implements Serializable{
     
     // Constructor de Camionetas
     
-    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String traccion, String rutaImg){
+    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String vidrios, String transmision, String traccion, String rutaImg) throws PlacaException{
         this.id = id;
         this.tipo = tipo;
         this.id_usuario = id_usuario;
-        this.placa = placa;
+        if(validarPlaca(placa))
+            this.placa = placa;
+        else
+            throw new PlacaException("La placa esta en un formato no valido!");
         this.marca = marca;
         this.motor = motor;
         this.anio = anio;
@@ -87,11 +95,14 @@ public class Vehiculo implements Serializable{
     
     // Constructor de motos
     
-    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String rutaImg){
+    public Vehiculo(int id, String tipo, int id_usuario, String placa, String marca, String motor, int anio, String modelo, double recorrido, String color, String combustible, double precio, String rutaImg) throws PlacaException{
         this.id = id;
         this.tipo = tipo;
         this.id_usuario = id_usuario;
-        this.placa = placa;
+        if(validarPlaca(placa))
+            this.placa = placa;
+        else
+            throw new PlacaException("La placa esta en un formato no valido!");
         this.marca = marca;
         this.motor = motor;
         this.anio = anio;

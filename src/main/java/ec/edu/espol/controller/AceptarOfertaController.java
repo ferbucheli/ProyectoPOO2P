@@ -5,6 +5,7 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.exceptions.OfertaException;
 import ec.edu.espol.model.Oferta;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
@@ -16,10 +17,14 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -48,6 +53,8 @@ public class AceptarOfertaController implements Initializable {
     private TableColumn<Oferta, Double> precioOfertado;
     @FXML
     private TableColumn<Oferta, String> correoComprador;
+    @FXML
+    private ComboBox cbox;
 
     /**
      * Initializes the controller class.
@@ -82,7 +89,9 @@ public class AceptarOfertaController implements Initializable {
     
     public void setInformacion(Usuario usuario){
         this.usuario = usuario;
-    }
+        ArrayList<String> placas = usuario.obtenerPlacas();
+        cbox.setItems(FXCollections.observableArrayList(placas));
+    }    
     
     
     
@@ -93,7 +102,6 @@ public class AceptarOfertaController implements Initializable {
          Oferta selectedItem = Tview.getSelectionModel().getSelectedItem();
          Tview.getItems().remove(selectedItem);
          
-        //Util.sendMail("migel_sjc2002@hotmail.com");
     }
     
     
@@ -111,29 +119,29 @@ public class AceptarOfertaController implements Initializable {
 
     @FXML
     private void MostarOfertas(MouseEvent event) {
-        
-        //ArrayList<Vehiculo> Ofertas=new ArrayList<>();
-        
-        
-        
-        ArrayList<Oferta> Ofertas =this.usuario.getOfertas();
-        
-        
-        //Vehiculo.sort(Oferta::compareTo);
-        
-        ObservableList<Oferta> lista=FXCollections.observableArrayList(Ofertas);
-        
-        // TODO
-        
-        placa.setCellValueFactory(new PropertyValueFactory<Oferta, String>("placa"));
-        
-        precioOfertado.setCellValueFactory(new PropertyValueFactory<Oferta, Double>("precio_ofertado"));
-        correoComprador.setCellValueFactory(new PropertyValueFactory<Oferta, String>("correo_comprador"));
-        
-        
-        Tview.setItems(lista);
+        String item = (String)cbox.getValue();
+        if(item == null){
+            ArrayList<Oferta> ofertas =this.usuario.getOfertas();
+            ofertas.sort(Oferta::compareTo);
+            ObservableList<Oferta> lista=FXCollections.observableArrayList(ofertas);
+            placa.setCellValueFactory(new PropertyValueFactory<Oferta, String>("placa"));
+            precioOfertado.setCellValueFactory(new PropertyValueFactory<Oferta, Double>("precio_ofertado"));
+            correoComprador.setCellValueFactory(new PropertyValueFactory<Oferta, String>("correo_comprador"));
+            Tview.setItems(lista);
+        } else{
+            try {
+                ArrayList<Oferta> ofertas = this.usuario.getOfertas(item);
+                ofertas.sort(Oferta::compareTo);
+                ObservableList<Oferta> lista=FXCollections.observableArrayList(ofertas);
+                placa.setCellValueFactory(new PropertyValueFactory<Oferta, String>("placa"));
+                precioOfertado.setCellValueFactory(new PropertyValueFactory<Oferta, Double>("precio_ofertado"));
+                correoComprador.setCellValueFactory(new PropertyValueFactory<Oferta, String>("correo_comprador"));
+                Tview.setItems(lista);
+            } catch (OfertaException ex) {
+                Alert a = new Alert(AlertType.WARNING, ex.getMessage());
+                a.show();
+            }
+        }
     }
-    
-    
-   
+
 }
